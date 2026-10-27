@@ -47,7 +47,7 @@ private:
 SystemProperties::SystemProperties()
 {
     versionString = QString(VERSION_STR);
-    releaseString = QString(RELEASE_STR);
+    releaseString = QString(RELEASE_STR).replace(QLatin1Char('_'), QLatin1Char(' '));
     hasDesktopEnvironment = WMUtils::isRunningDesktopEnvironment();
     isRunningWayland = WMUtils::isRunningWayland();
     isRunningXWayland = isRunningWayland && QGuiApplication::platformName() == "xcb";

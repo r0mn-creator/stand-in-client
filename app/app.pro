@@ -580,5 +580,7 @@ macx {
 
 VERSION = "$$cat(version.txt)"
 DEFINES += VERSION_STR=\\\"$$cat(version.txt)\\\"
+# qmake cannot pass a space inside a define, so spaces travel as underscores
 RELEASE = $$cat(release.txt, lines)
-DEFINES += "RELEASE_STR=\\\"$$RELEASE\\\""
+RELEASE = $$replace(RELEASE, " ", "_")
+DEFINES += RELEASE_STR=\\\"$$RELEASE\\\"
