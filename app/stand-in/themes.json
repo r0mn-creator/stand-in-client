@@ -1,0 +1,14 @@
+{
+  "default": "midnight-slate",
+  "themes": [
+    {"id": "midnight-slate", "name": "Midnight Slate", "ground": "#12161C", "surface": "#1A2029", "raised": "#222A35", "border": "#2C3542", "text": "#E6EAF0", "muted": "#98A2B3", "accent": "#2DD4BF", "onAccent": "#04201C"},
+    {"id": "midnight-navy", "name": "Midnight Navy", "ground": "#0B1220", "surface": "#131C2E", "raised": "#1B2740", "border": "#23304A", "text": "#E8EEF7", "muted": "#9AA8BF", "accent": "#2DD4BF", "onAccent": "#04201C"},
+    {"id": "graphite", "name": "Graphite", "ground": "#111214", "surface": "#1C1D21", "raised": "#26282D", "border": "#2C2E33", "text": "#F2F3F5", "muted": "#A1A5AD", "accent": "#2563EB", "onAccent": "#FFFFFF"},
+    {"id": "arctic", "name": "Arctic", "ground": "#F5F6F8", "surface": "#FFFFFF", "raised": "#EEF0F4", "border": "#E3E5EA", "text": "#111827", "muted": "#5B6270", "accent": "#4F46E5", "onAccent": "#FFFFFF"},
+    {"id": "ember", "name": "Ember", "ground": "#141110", "surface": "#1F1A17", "raised": "#2A231F", "border": "#342C26", "text": "#F5EFE9", "muted": "#B3A79C", "accent": "#F59E0B", "onAccent": "#1A1206"},
+    {"id": "aluminum", "name": "Aluminum", "ground": "#F2F2F4", "surface": "#FFFFFF", "raised": "#E6E6EA", "border": "#DCDCE0", "text": "#1D1D1F", "muted": "#6E6E73", "accent": "#0A66D8", "onAccent": "#FFFFFF"},
+    {"id": "space-black", "name": "Space Black", "ground": "#000000", "surface": "#161618", "raised": "#1C1C1E", "border": "#2A2A2D", "text": "#F5F5F7", "muted": "#A1A1A6", "accent": "#F5F5F7", "onAccent": "#000000"},
+    {"id": "titanium", "name": "Titanium", "ground": "#E7E5E0", "surface": "#F7F6F3", "raised": "#DAD7D1", "border": "#D2CEC7", "text": "#1F1E1C", "muted": "#615E58", "accent": "#3A3936", "onAccent": "#F7F6F3"},
+    {"id": "glass", "name": "Glass", "ground": "#1A1D2B", "surface": "rgba(255,255,255,0.12)", "raised": "rgba(255,255,255,0.18)", "border": "rgba(255,255,255,0.22)", "text": "#FFFFFF", "muted": "rgba(255,255,255,0.78)", "accent": "#FFFFFF", "onAccent": "#111322", "translucent": true}
+  ]
+}
