@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Stand-In
+Comment=Use your big PC from here, on all your monitors
+Exec=stand-in
+Icon=stand-in
+Terminal=false
+Type=Application
+Categories=Qt;Network;RemoteAccess;
+Keywords=remote desktop;stream;multi-monitor;

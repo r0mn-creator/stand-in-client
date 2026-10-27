@@ -28,7 +28,7 @@ ApplicationWindow {
         // in order to improve contrast between GFE's placeholder box art
         // and the background of the app grid.
         if (SystemProperties.usesMaterial3Theme) {
-            Material.background = "#303030"
+            Material.background = "#12161C"
         }
 
         SdlGamepadKeyNavigation.enable()
@@ -277,6 +277,24 @@ ApplicationWindow {
                 }
             }
 
+            // Stand-In release tag, always shown so testers can tell builds apart
+            Rectangle {
+                id: versionTag
+                implicitWidth: versionTagText.implicitWidth + 20
+                implicitHeight: 26
+                radius: 13
+                color: "#222A35"
+                border.color: "#2C3542"
+
+                Label {
+                    id: versionTagText
+                    anchors.centerIn: parent
+                    text: SystemProperties.releaseString + " \u00b7 " + SystemProperties.versionString
+                    font.pointSize: 9
+                    color: "#98A2B3"
+                }
+            }
+
             // This label will appear when the window gets too small and
             // we need to ensure the toolbar controls don't collide
             Label {
@@ -304,8 +322,7 @@ ApplicationWindow {
 
             NavigableToolButton {
                 id: discordButton
-                visible: SystemProperties.hasBrowser &&
-                         stackView.currentItem instanceof SettingsView
+                visible: false
 
                 iconSource: "qrc:/res/discord.svg"
 
@@ -377,8 +394,8 @@ ApplicationWindow {
                 }
 
                 Component.onCompleted: {
+                    // Moonlight's update checker compares against Moonlight releases; Stand-In has none yet
                     AutoUpdateChecker.onUpdateAvailable.connect(updateAvailable)
-                    AutoUpdateChecker.start()
                 }
 
                 Keys.onDownPressed: {
@@ -388,7 +405,7 @@ ApplicationWindow {
 
             NavigableToolButton {
                 id: helpButton
-                visible: SystemProperties.hasBrowser
+                visible: false
 
                 iconSource: "qrc:/res/question_mark.svg"
 
