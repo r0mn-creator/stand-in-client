@@ -520,6 +520,17 @@ DEPENDPATH += $$PWD/../h264bitstream
     DEPENDPATH += $$PWD/../AntiHooking
 }
 
+# Stand-In USB forwarding (USB/IP over the paired HTTPS connection)
+unix:!macx {
+    PKGCONFIG += libusb-1.0
+    SOURCES += \
+        streaming/usb/usbipexport.cpp \
+        streaming/usb/testcontroller.cpp \
+        streaming/usb/libusbdevice.cpp
+    HEADERS += \
+        streaming/usb/usbipexport.h
+}
+
 unix:!macx: {
     isEmpty(PREFIX) {
         PREFIX = /usr/local
