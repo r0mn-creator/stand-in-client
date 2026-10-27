@@ -330,10 +330,26 @@ std::string Exporter::serve(SSL *ssl, int fd)
         return sslWriteAll(ssl, out.data(), out.size());
     };
 
+    // Send every completion the backend has finished so far. The kernel must
+    // see a request's RET_SUBMIT before the RET_UNLINK that says it already completed.
+    auto flushCompletions = [&]() {
+        std::deque<Completion> done;
+        {
+            std::lock_guard<std::mutex> lg(m_Shared->lock);
+            done.swap(m_Shared->done);
+        }
+        for (auto &c : done) {
+            if (!sendCompletion(c)) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     pollfd fds[2] = {{fd, POLLIN, 0}, {m_WakePipe[0], POLLIN, 0}};
 
     while (true) {
-        if (!SSL_pending(ssl) && poll(fds, 2, 1) < 0 && errno != EINTR) {
+        if (!SSL_pending(ssl) && poll(fds, 2, 2) < 0 && errno != EINTR) {
             return std::string("poll: ") + strerror(errno);
         }
 
@@ -341,18 +357,14 @@ std::string Exporter::serve(SSL *ssl, int fd)
             (void)!read(m_WakePipe[0], buf, sizeof(buf));
         }
 
-        std::deque<Completion> done;
         {
             std::lock_guard<std::mutex> lg(m_Shared->lock);
             if (m_Shared->stopping) {
                 return {};
             }
-            done.swap(m_Shared->done);
         }
-        for (auto &c : done) {
-            if (!sendCompletion(c)) {
-                return "the connection closed";
-            }
+        if (!flushCompletions()) {
+            return "the connection closed";
         }
 
         m_Backend->poll();
@@ -414,7 +426,7 @@ std::string Exporter::serve(SSL *ssl, int fd)
             } else if (command == kCmdUnlink) {
                 uint32_t target = get32(h + 20);
                 bool cancelled = m_Backend->unlink(target);
-                if (!sendUnlinkReply(seqnum, cancelled ? -ECONNRESET : 0)) {
+                if (!flushCompletions() || !sendUnlinkReply(seqnum, cancelled ? -ECONNRESET : 0)) {
                     return "the connection closed";
                 }
                 offset += kHeaderSize;

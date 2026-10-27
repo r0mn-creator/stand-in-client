@@ -243,15 +243,13 @@ private:
         auto ctx = static_cast<TransferContext *>(transfer->user_data);
         auto self = ctx->device;
 
-        bool report;
-        {
-            std::lock_guard<std::mutex> lg(self->m_Lock);
-            self->m_Pending.erase(ctx->seqnum);
-            // An unlinked transfer is answered by the unlink reply alone
-            report = !ctx->unlinked && !self->m_Closing;
-        }
+        // Hold the lock until the completion is queued, so unlink() either still
+        // finds the transfer pending or its completion is already in the queue
+        std::lock_guard<std::mutex> lg(self->m_Lock);
+        self->m_Pending.erase(ctx->seqnum);
 
-        if (report) {
+        // An unlinked transfer is answered by the unlink reply alone
+        if (!ctx->unlinked && !self->m_Closing) {
             Completion c;
             c.seqnum = ctx->seqnum;
             c.in = ctx->in;

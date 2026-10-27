@@ -181,7 +181,7 @@ private:
                 if (index == 0) {
                     return send(languages, sizeof(languages));
                 }
-                auto s = stringDescriptor(index == 1 ? "Stand-In" : "Stand-In Test Controller");
+                auto s = stringDescriptor(index == 1 ? "Stand-In" : "Test Controller");
                 return send(s.data(), s.size());
             }
             case 0x22:
