@@ -22,7 +22,9 @@
         <file>gui/si/SiSpinner.qml</file>
         <file>gui/si/SiStatus.qml</file>
         <file>gui/si/SiSwitch.qml</file>
+        <file>gui/si/SiSwitchRow.qml</file>
         <file>gui/si/SiTile.qml</file>
+        <file>gui/si/SiToolTip.qml</file>
         <file>gui/si/qmldir</file>
         <file>gui/PcView.qml</file>
         <file>gui/AppView.qml</file>

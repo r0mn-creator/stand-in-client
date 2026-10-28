@@ -36,7 +36,9 @@ AbstractButton {
         SiFocusRing { target: button; ringRadius: Theme.radiusSm }
     }
 
-    ToolTip.visible: hovered && tip !== ""
-    ToolTip.delay: 600
-    ToolTip.text: tip
+    SiToolTip {
+        visible: button.hovered && button.tip !== ""
+        text: button.tip
+        y: button.height + 6
+    }
 }
