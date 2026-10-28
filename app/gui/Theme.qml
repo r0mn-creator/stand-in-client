@@ -36,6 +36,7 @@ QtObject {
     readonly property font button: Qt.font({ family: "Inter", pixelSize: 15, weight: Font.DemiBold })
     readonly property font label: Qt.font({ family: "Inter", pixelSize: 13, weight: Font.Medium })
     readonly property font caption: Qt.font({ family: "Inter", pixelSize: 12, weight: Font.Normal })
+    readonly property font code: Qt.font({ family: "Inter", pixelSize: 32, weight: Font.Bold })
 
     readonly property int spaceXxs: 4
     readonly property int spaceXs: 8

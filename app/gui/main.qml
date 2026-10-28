@@ -275,7 +275,6 @@ ApplicationWindow {
                 visible: !toolBar.home
                 iconName: "back"
                 tip: qsTr("Back")
-                flat: true
                 onClicked: goBack()
 
                 Keys.onDownPressed: stackView.currentItem.forceActiveFocus(Qt.TabFocus)

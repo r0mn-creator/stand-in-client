@@ -547,9 +547,7 @@ FocusScope {
                     Label {
                         anchors.centerIn: parent
                         text: modelData
-                        font.family: Theme.fontFamily
-                        font.pixelSize: 32
-                        font.weight: Font.Bold
+                        font: Theme.code
                         color: Theme.text
                     }
                 }

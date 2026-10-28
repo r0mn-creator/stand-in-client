@@ -188,12 +188,6 @@ FocusScope {
                     onClicked: settingsPage.showingCategory = false
                 }
 
-                Label {
-                    Layout.topMargin: Theme.spaceXs
-                    text: settingsPage.categories[settingsPage.category].title
-                    font: Theme.title
-                    color: Theme.text
-                }
 
                 Loader {
                     Layout.fillWidth: true
@@ -265,7 +259,7 @@ FocusScope {
                     rates.push(StreamingPreferences.fps)
                 }
                 rates.sort(function(a, b) { return a - b })
-                var options = rates.map(function(r) { return { text: qsTr("%1 fps").arg(r), value: r } })
+                var options = rates.map(function(r) { return { text: qsTr("%1 FPS").arg(r), value: r } })
                 options.push({ text: qsTr("Custom…"), value: -1 })
                 return options
             }
@@ -278,7 +272,7 @@ FocusScope {
                 SiPicker {
                     id: resolutionPicker
                     title: qsTr("Resolution")
-                    subtitle: qsTr("Match this screen gives the sharpest picture.")
+                    subtitle: qsTr("Higher is sharper; lower is smoother on slow networks.")
                     options: displayRoot.resolutionOptions()
                     currentValue: StreamingPreferences.width + "x" + StreamingPreferences.height
                     onActivated: (value) => {
@@ -297,7 +291,7 @@ FocusScope {
                 SiPicker {
                     id: frameRatePicker
                     title: qsTr("Frame rate")
-                    subtitle: qsTr("Higher is smoother and uses more bandwidth.")
+                    subtitle: qsTr("Higher feels smoother.")
                     options: displayRoot.frameRateOptions()
                     currentValue: StreamingPreferences.fps
                     onActivated: (value) => {
