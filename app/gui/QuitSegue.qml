@@ -1,4 +1,6 @@
-import QtQuick 2.0
+import QtQuick
+import StandIn 1.0
+import "si"
 import QtQuick.Controls 2.2
 
 import ComputerManager 1.0
@@ -10,7 +12,7 @@ Item {
     property Session nextSession : null
     property string nextAppName : ""
 
-    property string stageText : qsTr("Quitting %1...").arg(appName)
+    property string stageText : qsTr("Closing %1…").arg(appName)
 
     function quitAppCompleted(error)
     {
@@ -54,23 +56,22 @@ Item {
         ComputerManager.quitAppCompleted.disconnect(quitAppCompleted)
     }
 
-    Row {
+    Column {
         anchors.centerIn: parent
-        spacing: 5
+        spacing: Theme.spaceLg
 
-        BusyIndicator {
+        SiSpinner {
             id: stageSpinner
-            running: visible
+            anchors.horizontalCenter: parent.horizontalCenter
+            size: 48
         }
 
         Label {
             id: stageLabel
-            height: stageSpinner.height
+            anchors.horizontalCenter: parent.horizontalCenter
             text: stageText
-            font.pointSize: 20
-            verticalAlignment: Text.AlignVCenter
-
-            wrapMode: Text.Wrap
+            font: Theme.title
+            color: Theme.text
         }
     }
 

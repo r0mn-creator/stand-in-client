@@ -205,7 +205,8 @@ FocusScope {
 
         var component = Qt.createComponent("StreamSegue.qml")
         var segue = component.createObject(stackView, {
-                                               "appName": pc.name,
+                                               "appName": qsTr("Desktop"),
+                                               "pcName": pc.name,
                                                "session": appModel.createSessionForApp(appIndex),
                                                "isResume": runningId !== 0
                                            })
@@ -491,6 +492,7 @@ FocusScope {
         }
         SiMenuItem {
             text: qsTr("Rename")
+            iconName: "stylus"
             onTriggered: {
                 renameDialog.pcIndex = home.heroIndex
                 renameDialog.open()
@@ -506,6 +508,7 @@ FocusScope {
         }
         SiMenuItem {
             text: qsTr("Remove")
+            iconName: "close"
             danger: true
             onTriggered: {
                 removeDialog.pcIndex = home.heroIndex

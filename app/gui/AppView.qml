@@ -1,6 +1,9 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Controls.Material 2.2
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Controls.Material
+import QtQuick.Effects
+import StandIn 1.0
+import "si"
 
 import AppModel 1.0
 import ComputerManager 1.0
@@ -16,9 +19,10 @@ CenteredGridView {
     id: appGrid
     focus: true
     activeFocusOnTab: true
-    topMargin: 20
+    topMargin: Theme.spaceXs
+    minMargin: Theme.sizeGutter
     bottomMargin: 5
-    cellWidth: 230; cellHeight: 297;
+    cellWidth: 232; cellHeight: 340;
 
     function computerLost()
     {
@@ -71,7 +75,7 @@ CenteredGridView {
     model: appModel
 
     delegate: NavigableItemDelegate {
-        width: 220; height: 287;
+        width: 220; height: 328;
         grid: appGrid
 
         property alias appContextMenu: appContextMenuLoader.item
@@ -110,10 +114,38 @@ CenteredGridView {
             }
 
             // Display a tooltip with the full name if it's truncated
+            // Rounded corners, like every other card
+            layer.enabled: true
+            layer.effect: MultiEffect {
+                maskEnabled: true
+                maskSource: artMask
+            }
+
             ToolTip.text: model.name
             ToolTip.delay: 1000
             ToolTip.timeout: 5000
             ToolTip.visible: (parent.hovered || parent.highlighted) && (!appNameText || appNameText.truncated)
+        }
+
+        Rectangle {
+            id: artMask
+            anchors.fill: appIcon
+            radius: Theme.radiusMd
+            visible: false
+            layer.enabled: true
+        }
+
+        Label {
+            anchors.top: appIcon.bottom
+            anchors.topMargin: Theme.spaceXs
+            anchors.left: appIcon.left
+            anchors.right: appIcon.right
+            visible: !appIcon.isPlaceholder
+            text: model.name
+            font: Theme.bodyStrong
+            color: Theme.text
+            elide: Text.ElideRight
+            horizontalAlignment: Text.AlignHCenter
         }
 
         Loader {
@@ -145,7 +177,8 @@ CenteredGridView {
                     ToolTip.timeout: 3000
                     ToolTip.visible: hovered
 
-                    Material.background: "#D0808080"
+                    Material.background: Theme.accent
+                    icon.color: Theme.textOnAccent
                 }
 
                 RoundButton {
@@ -171,7 +204,8 @@ CenteredGridView {
                     ToolTip.timeout: 3000
                     ToolTip.visible: hovered
 
-                    Material.background: "#D0808080"
+                    Material.background: Theme.accent
+                    icon.color: Theme.textOnAccent
                 }
             }
         }
@@ -193,7 +227,8 @@ CenteredGridView {
             sourceComponent: Label {
                 id: appNameText
                 text: model.name
-                font.pointSize: 22
+                font: Theme.title
+                color: Theme.text
                 leftPadding: 20
                 rightPadding: 20
                 verticalAlignment: Text.AlignVCenter

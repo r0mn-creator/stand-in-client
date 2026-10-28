@@ -1,10 +1,10 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.2
+import QtQuick
+import QtQuick.Controls
+import "si"
 
-MenuItem {
+SiMenuItem {
     // Ensure focus can't be given to an invisible item
     enabled: visible
-    height: visible ? implicitHeight : 0
     focusPolicy: visible ? Qt.TabFocus : Qt.NoFocus
 
     onTriggered: {

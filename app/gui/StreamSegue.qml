@@ -14,6 +14,9 @@ Item {
 
     property Session session
     property string appName
+    // Set when connecting to a PC's desktop rather than starting one app
+    property string pcName
+    readonly property string targetName: pcName !== "" ? pcName : appName
     property string stageText : isResume ? qsTr("Picking up where you left off") :
                                            qsTr("Setting up your screens")
     property bool isResume : false
@@ -28,7 +31,7 @@ Item {
     function stageFailed(stage, errorCode, failingPorts)
     {
         // Display the error dialog after Session::exec() returns
-        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(appName)
+        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(targetName)
         streamSegueErrorDialog.text = qsTr("Starting %1 failed (error %2).").arg(stage).arg(errorCode)
 
         if (failingPorts) {
@@ -50,7 +53,7 @@ Item {
     function displayLaunchError(text)
     {
         // Display the error dialog after Session::exec() returns
-        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(appName)
+        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(targetName)
         streamSegueErrorDialog.text = text
         console.error(text)
     }
@@ -224,7 +227,7 @@ Item {
             Layout.fillWidth: true
             Layout.topMargin: Theme.spaceLg
             horizontalAlignment: Text.AlignHCenter
-            text: qsTr("Connecting to %1…").arg(appName)
+            text: pcName !== "" ? qsTr("Connecting to %1…").arg(pcName) : qsTr("Starting %1…").arg(appName)
             font: Theme.title
             color: Theme.text
             wrapMode: Text.Wrap
