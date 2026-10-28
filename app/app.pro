@@ -196,6 +196,7 @@ SOURCES += \
     streaming/audio/renderers/sdlaud.cpp \
     gui/computermodel.cpp \
     gui/usbdevicemodel.cpp \
+    gui/inputmode.cpp \
     gui/appmodel.cpp \
     streaming/bandwidth.cpp \
     streaming/streamutils.cpp \
@@ -234,6 +235,7 @@ HEADERS += \
     streaming/audio/renderers/sdl.h \
     gui/computermodel.h \
     gui/usbdevicemodel.h \
+    gui/inputmode.h \
     gui/appmodel.h \
     streaming/video/decoder.h \
     streaming/bandwidth.h \

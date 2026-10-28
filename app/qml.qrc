@@ -1,6 +1,29 @@
 <RCC>
     <qresource prefix="/">
         <file>gui/main.qml</file>
+        <file>gui/Theme.qml</file>
+        <file>gui/si/SiAddTile.qml</file>
+        <file>gui/si/SiBanner.qml</file>
+        <file>gui/si/SiButton.qml</file>
+        <file>gui/si/SiCard.qml</file>
+        <file>gui/si/SiDialog.qml</file>
+        <file>gui/si/SiFocusRing.qml</file>
+        <file>gui/si/SiGroup.qml</file>
+        <file>gui/si/SiIcon.qml</file>
+        <file>gui/si/SiIconButton.qml</file>
+        <file>gui/si/SiInput.qml</file>
+        <file>gui/si/SiMenu.qml</file>
+        <file>gui/si/SiMenuItem.qml</file>
+        <file>gui/si/SiPicker.qml</file>
+        <file>gui/si/SiPill.qml</file>
+        <file>gui/si/SiRow.qml</file>
+        <file>gui/si/SiSectionLabel.qml</file>
+        <file>gui/si/SiSliderRow.qml</file>
+        <file>gui/si/SiSpinner.qml</file>
+        <file>gui/si/SiStatus.qml</file>
+        <file>gui/si/SiSwitch.qml</file>
+        <file>gui/si/SiTile.qml</file>
+        <file>gui/si/qmldir</file>
         <file>gui/PcView.qml</file>
         <file>gui/AppView.qml</file>
         <file>gui/SettingsView.qml</file>

@@ -16,7 +16,8 @@ class ComputerModel : public QAbstractListModel
         WakeableRole,
         StatusUnknownRole,
         ServerSupportedRole,
-        DetailsRole
+        DetailsRole,
+        UuidRole
     };
 
 public:
@@ -30,6 +31,9 @@ public:
     int rowCount(const QModelIndex &parent) const override;
 
     virtual QHash<int, QByteArray> roleNames() const override;
+
+    // Every role of one PC, keyed by role name, for screens that show a single PC
+    Q_INVOKABLE QVariantMap get(int computerIndex) const;
 
     Q_INVOKABLE void deleteComputer(int computerIndex);
 

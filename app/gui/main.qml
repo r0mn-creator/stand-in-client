@@ -10,6 +10,8 @@ import StreamingPreferences 1.0
 import SystemProperties 1.0
 import SdlGamepadKeyNavigation 1.0
 import UsbDevices 1.0
+import StandIn 1.0
+import "si"
 
 ApplicationWindow {
     property bool pollingActive: false
@@ -21,16 +23,22 @@ ApplicationWindow {
 
     id: window
     width: 1280
-    height: 600
+    height: 800
+    minimumWidth: 640
+    minimumHeight: 480
+    color: Theme.ground
+    font: Theme.body
+
+    Material.theme: Material.Dark
+    Material.accent: Theme.accent
+    Material.background: Theme.ground
+    Material.foreground: Theme.text
 
     // This function runs prior to creation of the initial StackView item
     function doEarlyInit() {
         // Override the background color to Material 2 colors for Qt 6.5+
         // in order to improve contrast between GFE's placeholder box art
         // and the background of the app grid.
-        if (SystemProperties.usesMaterial3Theme) {
-            Material.background = "#12161C"
-        }
 
         SdlGamepadKeyNavigation.enable()
 
@@ -245,252 +253,87 @@ ApplicationWindow {
         }
     }
 
-    header: ToolBar {
+    // Home: logo, name and version on the left, Devices and Settings on the right.
+    // Sub-pages: back and the page title.
+    header: Rectangle {
         id: toolBar
-        height: 60
-        anchors.topMargin: 5
-        anchors.bottomMargin: 5
+        height: Theme.sizeHeaderHeight + Theme.spaceSm
+        color: Theme.ground
 
-        Label {
-            id: titleLabel
-            visible: toolBar.width > 700
-            anchors.fill: parent
-            text: stackView.currentItem.objectName
-            font.pointSize: 20
-            elide: Label.ElideRight
-            horizontalAlignment: Qt.AlignHCenter
-            verticalAlignment: Qt.AlignVCenter
-        }
+        readonly property bool home: stackView.depth <= 1
 
         RowLayout {
-            spacing: 10
-            anchors.leftMargin: 10
-            anchors.rightMargin: 10
             anchors.fill: parent
+            anchors.leftMargin: Theme.sizeGutter
+            anchors.rightMargin: Theme.sizeGutter
+            anchors.topMargin: Theme.spaceSm
+            spacing: Theme.spaceSm
 
-            NavigableToolButton {
-                // Only make the button visible if the user has navigated somewhere.
-                visible: stackView.depth > 1
-
-                iconSource: "qrc:/res/arrow_left.svg"
-
+            SiIconButton {
+                id: backButton
+                visible: !toolBar.home
+                iconName: "back"
+                tip: qsTr("Back")
+                flat: true
                 onClicked: goBack()
 
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
+                Keys.onDownPressed: stackView.currentItem.forceActiveFocus(Qt.TabFocus)
             }
 
-            // Stand-In release tag, always shown so testers can tell builds apart
-            Rectangle {
-                id: versionTag
-                implicitWidth: versionTagText.implicitWidth + 20
-                implicitHeight: 26
-                radius: 13
-                color: "#222A35"
-                border.color: "#2C3542"
-
-                Label {
-                    id: versionTagText
-                    anchors.centerIn: parent
-                    text: SystemProperties.releaseString + " \u00b7 " + SystemProperties.versionString
-                    font.pointSize: 9
-                    color: "#98A2B3"
-                }
-            }
-
-            // This label will appear when the window gets too small and
-            // we need to ensure the toolbar controls don't collide
-            Label {
-                id: titleRowLabel
-                font.pointSize: titleLabel.font.pointSize
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
-
-                // We need this label to always be visible so it can occupy
-                // the remaining space in the RowLayout. To "hide" it, we
-                // just set the text to empty string.
-                text: !titleLabel.visible ? stackView.currentItem.objectName : ""
+            Image {
+                visible: toolBar.home
+                source: "qrc:/res/stand-in.svg"
+                sourceSize: Qt.size(Theme.sizeLogo * 2, Theme.sizeLogo * 2)
+                Layout.preferredWidth: Theme.sizeLogo
+                Layout.preferredHeight: Theme.sizeLogo
             }
 
             Label {
-                id: versionLabel
-                visible: stackView.currentItem instanceof SettingsView
-                text: qsTr("Version %1").arg(SystemProperties.versionString)
-                font.pointSize: 12
-                horizontalAlignment: Qt.AlignRight
-                verticalAlignment: Qt.AlignVCenter
+                text: toolBar.home ? "Stand-In" : (stackView.currentItem ? stackView.currentItem.objectName : "")
+                font: toolBar.home ? Theme.headline : Theme.title
+                color: Theme.text
+                elide: Text.ElideRight
+                Layout.leftMargin: toolBar.home ? 2 : 0
             }
 
-            NavigableToolButton {
-                id: discordButton
-                visible: false
-
-                iconSource: "qrc:/res/discord.svg"
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Join our community on Discord")
-
-                // TODO need to make sure browser is brought to foreground.
-                onClicked: Qt.openUrlExternally("https://moonlight-stream.org/discord");
-
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
+            // Release tag, so testers can tell builds apart
+            SiPill {
+                visible: toolBar.home
+                text: SystemProperties.releaseString + " \u00b7 " + SystemProperties.versionString
+                Layout.leftMargin: 2
             }
 
-            NavigableToolButton {
-                id: addPcButton
-                visible: stackView.currentItem instanceof PcView
+            Item { Layout.fillWidth: true }
 
-                iconSource:  "qrc:/res/ic_add_to_queue_white_48px.svg"
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Add PC manually") + (newPcShortcut.nativeText ? (" ("+newPcShortcut.nativeText+")") : "")
-
-                Shortcut {
-                    id: newPcShortcut
-                    sequence: StandardKey.New
-                    onActivated: addPcButton.clicked()
-                }
-
-                onClicked: {
-                    addPcDialog.open()
-                }
-
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
-            }
-
-            NavigableToolButton {
-                property string browserUrl: ""
-
-                id: updateButton
-
-                iconSource: "qrc:/res/update.svg"
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered || visible
-
-                // Invisible until we get a callback notifying us that
-                // an update is available
-                visible: false
-
-                onClicked: {
-                    if (SystemProperties.hasBrowser) {
-                        Qt.openUrlExternally(browserUrl);
-                    }
-                }
-
-                function updateAvailable(version, url)
-                {
-                    ToolTip.text = qsTr("Update available for Moonlight: Version %1").arg(version)
-                    updateButton.browserUrl = url
-                    updateButton.visible = true
-                }
-
-                Component.onCompleted: {
-                    // Moonlight's update checker compares against Moonlight releases; Stand-In has none yet
-                    AutoUpdateChecker.onUpdateAvailable.connect(updateAvailable)
-                }
-
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
-            }
-
-            NavigableToolButton {
-                id: helpButton
-                visible: false
-
-                iconSource: "qrc:/res/question_mark.svg"
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Help") + (helpShortcut.nativeText ? (" ("+helpShortcut.nativeText+")") : "")
-
-                Shortcut {
-                    id: helpShortcut
-                    sequence: StandardKey.HelpContents
-                    onActivated: helpButton.clicked()
-                }
-
-                // TODO need to make sure browser is brought to foreground.
-                onClicked: Qt.openUrlExternally("https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide");
-
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
-            }
-
-            NavigableToolButton {
-                // TODO: Implement gamepad mapping then unhide this button
-                visible: false
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Gamepad Mapper")
-
-                iconSource: "qrc:/res/ic_videogame_asset_white_48px.svg"
-
-                onClicked: navigateTo("qrc:/gui/GamepadMapper.qml", GamepadMapper)
-
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
-            }
-
-            NavigableToolButton {
+            SiIconButton {
                 id: devicesButton
-                visible: UsbDevices.supported
-
-                iconSource: "qrc:/res/usb.svg"
-
+                visible: toolBar.home && UsbDevices.supported
+                iconName: "usb"
+                tip: qsTr("USB devices")
                 onClicked: navigateTo("qrc:/gui/DevicesView.qml", DevicesView)
 
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("USB devices")
+                Keys.onDownPressed: stackView.currentItem.forceActiveFocus(Qt.TabFocus)
             }
 
-            NavigableToolButton {
+            SiIconButton {
                 id: settingsButton
-
-                iconSource:  "qrc:/res/settings.svg"
-
+                visible: toolBar.home
+                iconName: "gear"
+                tip: qsTr("Settings") + (settingsShortcut.nativeText ? (" (" + settingsShortcut.nativeText + ")") : "")
                 onClicked: navigateTo("qrc:/gui/SettingsView.qml", SettingsView)
 
-                Keys.onDownPressed: {
-                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
-                }
+                Keys.onDownPressed: stackView.currentItem.forceActiveFocus(Qt.TabFocus)
 
                 Shortcut {
                     id: settingsShortcut
                     sequence: StandardKey.Preferences
                     onActivated: settingsButton.clicked()
                 }
-
-                ToolTip.delay: 1000
-                ToolTip.timeout: 3000
-                ToolTip.visible: hovered
-                ToolTip.text: qsTr("Settings") + (settingsShortcut.nativeText ? (" ("+settingsShortcut.nativeText+")") : "")
             }
         }
+
+        // Updates are announced by the update checker; Stand-In has no release feed yet
+        Component.onCompleted: AutoUpdateChecker.onUpdateAvailable.connect(function(version, url) {})
     }
 
     ErrorMessageDialog {
@@ -530,8 +373,9 @@ ApplicationWindow {
     // This dialog appears when quitting via keyboard or gamepad button
     NavigableMessageDialog {
         id: quitConfirmationDialog
-        standardButtons: Dialog.Yes | Dialog.No
-        text: qsTr("Are you sure you want to quit?")
+        title: qsTr("Quit Stand-In?")
+        standardButtons: Dialog.Cancel | Dialog.Yes
+        text: qsTr("Devices you're sending to a PC will be given back to this machine.")
         // For keyboard/gamepad navigation
         onAccepted: Qt.quit()
     }
@@ -556,49 +400,95 @@ ApplicationWindow {
             // StreamSegue assumes its dialog will be re-created each time we
             // start streaming, so fake it by wiping out the text each time.
             text = ""
+            title = ""
         }
     }
 
-    NavigableDialog {
+    // Add a PC by name or address
+    SiDialog {
         id: addPcDialog
-        property string label: qsTr("Enter the IP address of your host PC:")
 
-        standardButtons: Dialog.Ok | Dialog.Cancel
+        property bool adding: false
+        property string error: ""
+
+        title: qsTr("Add a PC")
+        text: qsTr("Enter the PC's name or IP address. It needs Stand-In Server running.")
 
         onOpened: {
-            // Force keyboard focus on the textbox so keyboard navigation works
-            editText.forceActiveFocus()
+            error = ""
+            addressField.forceActiveFocus()
         }
-
         onClosed: {
-            editText.clear()
+            addressField.clear()
+            adding = false
         }
 
-        onAccepted: {
-            if (editText.text) {
-                ComputerManager.addNewHostManually(editText.text.trim())
+        function add() {
+            var address = addressField.text.trim()
+            if (!address || adding) {
+                return
             }
+            error = ""
+            adding = true
+            ComputerManager.addNewHostManually(address)
         }
 
-        ColumnLayout {
-            Label {
-                text: addPcDialog.label
-                font.bold: true
-            }
-
-            TextField {
-                id: editText
-                Layout.fillWidth: true
-                focus: true
-
-                Keys.onReturnPressed: {
-                    addPcDialog.accept()
+        Connections {
+            target: ComputerManager
+            function onComputerAddCompleted(success, detectedPortBlocking) {
+                if (!addPcDialog.adding) {
+                    return
                 }
-
-                Keys.onEnterPressed: {
-                    addPcDialog.accept()
+                addPcDialog.adding = false
+                if (success) {
+                    addPcDialog.close()
+                }
+                else if (detectedPortBlocking) {
+                    addPcDialog.error = qsTr("This network is blocking Stand-In. Try another network, or connect over Tailscale.")
+                }
+                else {
+                    addPcDialog.error = qsTr("Couldn't reach %1. Check that it's on and Stand-In Server is running.").arg(addressField.text.trim())
                 }
             }
         }
+
+        SiInput {
+            id: addressField
+            Layout.fillWidth: true
+            placeholderText: qsTr("e.g. big-pc or 192.168.1.20")
+            enabled: !addPcDialog.adding
+            error: addPcDialog.error !== ""
+
+            Keys.onReturnPressed: addPcDialog.add()
+            Keys.onEnterPressed: addPcDialog.add()
+            Keys.onDownPressed: addButton.forceActiveFocus(Qt.TabFocus)
+        }
+
+        Label {
+            Layout.fillWidth: true
+            visible: addPcDialog.error !== ""
+            text: addPcDialog.error
+            font: Theme.caption
+            color: Theme.danger
+            wrapMode: Text.Wrap
+        }
+
+        buttons: [
+            SiButton {
+                kind: "secondary"
+                text: qsTr("Cancel")
+                onClicked: addPcDialog.close()
+                Keys.onRightPressed: addButton.forceActiveFocus(Qt.TabFocus)
+                Keys.onUpPressed: addressField.forceActiveFocus()
+            },
+            SiButton {
+                id: addButton
+                text: qsTr("Add")
+                busy: addPcDialog.adding
+                enabled: addressField.text.trim() !== ""
+                onClicked: addPcDialog.add()
+                Keys.onUpPressed: addressField.forceActiveFocus()
+            }
+        ]
     }
 }

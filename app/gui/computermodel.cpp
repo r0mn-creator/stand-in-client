@@ -42,6 +42,8 @@ QVariant ComputerModel::data(const QModelIndex& index, int role) const
         return computer->state == NvComputer::CS_UNKNOWN;
     case ServerSupportedRole:
         return computer->isSupportedServerVersion;
+    case UuidRole:
+        return computer->uuid;
     case DetailsRole: {
         QString state, pairState;
 
@@ -110,8 +112,24 @@ QHash<int, QByteArray> ComputerModel::roleNames() const
     names[StatusUnknownRole] = "statusUnknown";
     names[ServerSupportedRole] = "serverSupported";
     names[DetailsRole] = "details";
+    names[UuidRole] = "uuid";
 
     return names;
+}
+
+QVariantMap ComputerModel::get(int computerIndex) const
+{
+    QVariantMap values;
+    if (computerIndex < 0 || computerIndex >= m_Computers.count()) {
+        return values;
+    }
+
+    QModelIndex modelIndex = index(computerIndex);
+    QHash<int, QByteArray> names = roleNames();
+    for (auto it = names.cbegin(); it != names.cend(); ++it) {
+        values.insert(QString::fromLatin1(it.value()), data(modelIndex, it.key()));
+    }
+    return values;
 }
 
 Session* ComputerModel::createSessionForCurrentGame(int computerIndex)

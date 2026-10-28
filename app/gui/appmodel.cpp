@@ -58,6 +58,28 @@ int AppModel::getDirectLaunchAppIndex()
     return -1;
 }
 
+int AppModel::findApp(QString name)
+{
+    for (int i = 0; i < m_VisibleApps.count(); i++) {
+        if (m_VisibleApps[i].name.compare(name, Qt::CaseInsensitive) == 0) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
+int AppModel::findAppById(int appId)
+{
+    for (int i = 0; i < m_VisibleApps.count(); i++) {
+        if (m_VisibleApps[i].id == appId) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 int AppModel::rowCount(const QModelIndex &parent) const
 {
     // For list models only the root node (an invalid parent) should return the list's size. For all

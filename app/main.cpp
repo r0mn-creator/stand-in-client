@@ -9,6 +9,7 @@
 #include <QNetworkProxyFactory>
 #include <QPalette>
 #include <QFont>
+#include <QFontDatabase>
 #include <QCursor>
 #include <QElapsedTimer>
 #include <QTemporaryFile>
@@ -48,6 +49,7 @@
 #include "utils.h"
 #include "gui/computermodel.h"
 #include "gui/usbdevicemodel.h"
+#include "gui/inputmode.h"
 #include "gui/appmodel.h"
 #include "backend/autoupdatechecker.h"
 #include "backend/computermanager.h"
@@ -931,7 +933,7 @@ int main(int argc, char *argv[])
 #ifndef Q_OS_DARWIN
     // Set the window icon except on macOS where we want to keep the
     // modified macOS 11 style rounded corner icon.
-    app.setWindowIcon(QIcon(":/res/moonlight.svg"));
+    app.setWindowIcon(QIcon(":/res/stand-in.svg"));
 #endif
 
     // This is necessary to show our icon correctly on Wayland
@@ -939,7 +941,22 @@ int main(int argc, char *argv[])
     qputenv("SDL_VIDEO_WAYLAND_WMCLASS", "com.moonlight_stream.Moonlight");
     qputenv("SDL_VIDEO_X11_WMCLASS", "com.moonlight_stream.Moonlight");
 
+    // Stand-In ships its own typeface so every platform looks the same
+    for (const char* weight : { "Regular", "Medium", "SemiBold", "Bold" }) {
+        QFontDatabase::addApplicationFont(QString(":/res/fonts/Inter-%1.ttf").arg(weight));
+    }
+    {
+        QFont inter("Inter");
+        inter.setPixelSize(15);
+        app.setFont(inter);
+    }
+
     // Register our C++ types for QML
+    qmlRegisterSingletonType(QUrl("qrc:/gui/Theme.qml"), "StandIn", 1, 0, "Theme");
+    qmlRegisterSingletonType<InputMode>("StandIn", 1, 0, "InputMode",
+                                        [](QQmlEngine*, QJSEngine*) -> QObject* {
+                                            return new InputMode();
+                                        });
     qmlRegisterType<ComputerModel>("ComputerModel", 1, 0, "ComputerModel");
     qmlRegisterType<AppModel>("AppModel", 1, 0, "AppModel");
     qmlRegisterUncreatableType<Session>("Session", 1, 0, "Session", "Session cannot be created from QML");

@@ -11,9 +11,41 @@
         <file>res/no_app_image.png</file>
         <file>res/settings.svg</file>
         <file>res/usb.svg</file>
+        <file>res/si/apps.svg</file>
+        <file>res/si/back.svg</file>
+        <file>res/si/bluetooth.svg</file>
+        <file>res/si/camera.svg</file>
+        <file>res/si/check.svg</file>
+        <file>res/si/chevron-down.svg</file>
+        <file>res/si/chevron-right.svg</file>
+        <file>res/si/close.svg</file>
+        <file>res/si/display.svg</file>
+        <file>res/si/drive.svg</file>
+        <file>res/si/flask.svg</file>
+        <file>res/si/gamepad.svg</file>
+        <file>res/si/gear.svg</file>
+        <file>res/si/globe.svg</file>
+        <file>res/si/info.svg</file>
+        <file>res/si/keyboard.svg</file>
+        <file>res/si/more.svg</file>
+        <file>res/si/palette.svg</file>
+        <file>res/si/plus.svg</file>
+        <file>res/si/power.svg</file>
+        <file>res/si/search.svg</file>
+        <file>res/si/sliders.svg</file>
+        <file>res/si/speaker.svg</file>
+        <file>res/si/stylus.svg</file>
+        <file>res/si/tower.svg</file>
+        <file>res/si/usb.svg</file>
+        <file>res/si/warning.svg</file>
+        <file>res/fonts/Inter-Bold.ttf</file>
+        <file>res/fonts/Inter-Medium.ttf</file>
+        <file>res/fonts/Inter-Regular.ttf</file>
+        <file>res/fonts/Inter-SemiBold.ttf</file>
         <file>res/arrow_left.svg</file>
         <file>res/question_mark.svg</file>
         <file>res/moonlight.svg</file>
+        <file>res/stand-in.svg</file>
         <file>res/update.svg</file>
         <file>res/baseline-help_outline-24px.svg</file>
         <file>res/baseline-error_outline-24px.svg</file>

@@ -31,6 +31,10 @@ public:
 
     Q_INVOKABLE int getDirectLaunchAppIndex();
 
+    // Index of the visible app with this name or id, or -1
+    Q_INVOKABLE int findApp(QString name);
+    Q_INVOKABLE int findAppById(int appId);
+
     Q_INVOKABLE int getRunningAppId();
 
     Q_INVOKABLE QString getRunningAppName();

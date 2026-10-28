@@ -1,32 +1,38 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.2
+import QtQuick.Layouts 1.3
 
 import SdlGamepadKeyNavigation 1.0
 import Session 1.0
 import SystemProperties 1.0
+import StandIn 1.0
+import "si"
 
 Item {
+    readonly property bool hideHeader: true
+
     property Session session
     property string appName
-    property string stageText : isResume ? qsTr("Resuming %1...").arg(appName) :
-                                           qsTr("Starting %1...").arg(appName)
+    property string stageText : isResume ? qsTr("Picking up where you left off") :
+                                           qsTr("Setting up your screens")
     property bool isResume : false
     property bool quitAfter : false
 
     function stageStarting(stage)
     {
         // Update the spinner text
-        stageText = qsTr("Starting %1...").arg(stage)
+        stageText = qsTr("Starting %1…").arg(stage)
     }
 
     function stageFailed(stage, errorCode, failingPorts)
     {
         // Display the error dialog after Session::exec() returns
-        streamSegueErrorDialog.text = qsTr("Starting %1 failed: Error %2").arg(stage).arg(errorCode)
+        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(appName)
+        streamSegueErrorDialog.text = qsTr("Starting %1 failed (error %2).").arg(stage).arg(errorCode)
 
         if (failingPorts) {
-            streamSegueErrorDialog.text += "\n\n" + qsTr("Check your firewall and port forwarding rules for port(s): %1").arg(failingPorts)
+            streamSegueErrorDialog.text += " " + qsTr("Check the firewall on the PC and your network for these ports: %1").arg(failingPorts)
         }
     }
 
@@ -34,8 +40,7 @@ Item {
     {
         // Hide the UI contents so the user doesn't
         // see them briefly when we pop off the StackView
-        stageSpinner.visible = false
-        stageLabel.visible = false
+        connectingColumn.visible = false
         hintText.visible = false
 
         // Hide the window now that streaming has begun
@@ -45,6 +50,7 @@ Item {
     function displayLaunchError(text)
     {
         // Display the error dialog after Session::exec() returns
+        streamSegueErrorDialog.title = qsTr("Couldn't connect to %1").arg(appName)
         streamSegueErrorDialog.text = text
         console.error(text)
     }
@@ -62,7 +68,7 @@ Item {
     function sessionFinished(portTestResult)
     {
         if (portTestResult !== 0 && portTestResult !== -1 && streamSegueErrorDialog.text) {
-            streamSegueErrorDialog.text += "\n\n" + qsTr("This PC's Internet connection is blocking Moonlight. Streaming over the Internet may not work while connected to this network.")
+            streamSegueErrorDialog.text += "\n\n" + qsTr("This network is blocking Stand-In, so connecting over the internet may not work here.")
         }
 
         // Re-enable GUI gamepad usage now
@@ -152,8 +158,8 @@ Item {
             // in the hintText control itself to synchronize
             // with Session.exec() which requires no concurrent
             // gamepad usage.
-            hintText.text = qsTr("Tip:") + " " + qsTr("Press %1 to disconnect your session").arg(SdlGamepadKeyNavigation.getConnectedGamepads() > 0 ?
-                                                  qsTr("Start+Select+L1+R1") : qsTr("Ctrl+Alt+Shift+Q"))
+            hintText.text = qsTr("To disconnect, press %1").arg(SdlGamepadKeyNavigation.getConnectedGamepads() > 0 ?
+                                                  qsTr("Start + Select + L1 + R1") : qsTr("Ctrl + Alt + Shift + Q"))
 
             // Stop GUI gamepad usage now
             SdlGamepadKeyNavigation.disable()
@@ -200,35 +206,57 @@ Item {
         sourceComponent: Item {}
     }
 
-    Row {
+    // Connecting: the PC's name, what's happening, and a way out
+    ColumnLayout {
+        id: connectingColumn
         anchors.centerIn: parent
-        spacing: 5
+        width: Math.min(parent.width - 2 * Theme.sizeGutter, Theme.sizeContentWidth)
+        spacing: 0
 
-        BusyIndicator {
+        SiSpinner {
             id: stageSpinner
-            running: visible
+            Layout.alignment: Qt.AlignHCenter
+            size: 48
             visible: false
         }
 
         Label {
-            id: stageLabel
-            height: stageSpinner.height
-            text: stageText
-            font.pointSize: 20
-            verticalAlignment: Text.AlignVCenter
-
+            Layout.fillWidth: true
+            Layout.topMargin: Theme.spaceLg
+            horizontalAlignment: Text.AlignHCenter
+            text: qsTr("Connecting to %1…").arg(appName)
+            font: Theme.title
+            color: Theme.text
             wrapMode: Text.Wrap
+        }
+
+        Label {
+            id: stageLabel
+            Layout.fillWidth: true
+            Layout.topMargin: Theme.spaceXxs
+            horizontalAlignment: Text.AlignHCenter
+            text: stageText
+            font: Theme.label
+            color: Theme.muted
+            wrapMode: Text.Wrap
+        }
+
+        SiButton {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: Theme.spaceLg
+            kind: "secondary"
+            text: qsTr("Cancel")
+            visible: stageSpinner.visible && session !== null
+            onClicked: session.interrupt()
         }
     }
 
     Label {
         id: hintText
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 50
+        anchors.bottomMargin: Theme.spaceXxl
         anchors.horizontalCenter: parent.horizontalCenter
-        font.pointSize: 18
-        verticalAlignment: Text.AlignVCenter
-
-        wrapMode: Text.Wrap
+        font: Theme.caption
+        color: Theme.subtle
     }
 }

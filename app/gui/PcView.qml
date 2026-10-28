@@ -1,404 +1,692 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import QtCore
 
 import ComputerModel 1.0
-
+import AppModel 1.0
 import ComputerManager 1.0
 import StreamingPreferences 1.0
 import SystemProperties 1.0
 import SdlGamepadKeyNavigation 1.0
+import StandIn 1.0
+import "si"
 
-CenteredGridView {
-    property ComputerModel computerModel : createModel()
+// Stand-In home: one big card for the PC you most likely want, the rest in a row below
+FocusScope {
+    id: home
+    objectName: qsTr("Your PCs")
 
-    id: pcGrid
-    focus: true
-    activeFocusOnTab: true
-    topMargin: 20
-    bottomMargin: 5
-    cellWidth: 310; cellHeight: 330;
-    objectName: qsTr("Computers")
+    property ComputerModel computerModel: createModel()
 
-    Component.onCompleted: {
-        // Don't show any highlighted item until interacting with them.
-        // We do this here instead of onActivated to avoid losing the user's
-        // selection when backing out of a different page of the app.
-        currentIndex = -1
+    // Bumped whenever the model changes, so bindings that read get() refresh
+    property int revision: 0
+    property string selectedUuid: ""
+    property string wakingUuid: ""
+
+    readonly property int heroIndex: { revision; return pickHero() }
+    readonly property var hero: { revision; return computerModel.get(heroIndex) }
+
+    Settings {
+        id: remembered
+        category: "home"
+        property string lastUsedPc: ""
     }
 
     // Note: Any initialization done here that is critical for streaming must
     // also be done in CliStartStreamSegue.qml, since this code does not run
     // for command-line initiated streams.
     StackView.onActivated: {
-        // Setup signals on CM
-        ComputerManager.computerAddCompleted.connect(addComplete)
-
-        // Highlight the first item if a gamepad is connected
-        if (currentIndex === -1 && SdlGamepadKeyNavigation.getConnectedGamepads() > 0) {
-            currentIndex = 0
-        }
-    }
-
-    StackView.onDeactivating: {
-        ComputerManager.computerAddCompleted.disconnect(addComplete)
-    }
-
-    function pairingComplete(error)
-    {
-        // Close the PIN dialog
-        pairDialog.close()
-
-        // Display a failed dialog if we got an error
-        if (error !== undefined) {
-            errorDialog.text = error
-            errorDialog.helpText = ""
-            errorDialog.open()
-        }
-    }
-
-    function addComplete(success, detectedPortBlocking)
-    {
-        if (!success) {
-            errorDialog.text = qsTr("Unable to connect to the specified PC.")
-
-            if (detectedPortBlocking) {
-                errorDialog.text += "\n\n" + qsTr("This PC's Internet connection is blocking Moonlight. Streaming over the Internet may not work while connected to this network.")
-            }
-            else {
-                errorDialog.helpText = qsTr("Click the Help button for possible solutions.")
-            }
-
-            errorDialog.open()
-        }
+        revision++
+        heroButton.forceActiveFocus(Qt.TabFocus)
     }
 
     function createModel()
     {
-        var model = Qt.createQmlObject('import ComputerModel 1.0; ComputerModel {}', parent, '')
+        var model = Qt.createQmlObject('import ComputerModel 1.0; ComputerModel {}', home, '')
         model.initialize(ComputerManager)
         model.pairingCompleted.connect(pairingComplete)
         model.connectionTestCompleted.connect(testConnectionDialog.connectionTestComplete)
         return model
     }
 
-    Row {
-        anchors.centerIn: parent
-        spacing: 5
-        visible: pcGrid.count === 0
+    Connections {
+        target: computerModel
+        function onDataChanged() { home.revision++; home.continueWaking() }
+        function onRowsInserted() { home.revision++ }
+        function onRowsRemoved() { home.revision++ }
+        function onModelReset() { home.revision++ }
+    }
 
-        BusyIndicator {
-            id: searchSpinner
-            visible: StreamingPreferences.enableMdns
-            running: visible
+    function indexOfUuid(uuid)
+    {
+        for (var i = 0; uuid && i < computerModel.rowCount(); i++) {
+            if (computerModel.get(i).uuid === uuid) {
+                return i
+            }
+        }
+        return -1
+    }
+
+    // The PC the user picked, else the one they used last, else the first awake one
+    function pickHero()
+    {
+        var count = computerModel.rowCount()
+        if (count === 0) {
+            return -1
         }
 
-        Label {
-            height: searchSpinner.height
-            elide: Label.ElideRight
-            text: StreamingPreferences.enableMdns ? qsTr("Searching for compatible hosts on your local network...")
-                                                  : qsTr("Automatic PC discovery is disabled. Add your PC manually.")
-            font.pointSize: 20
-            verticalAlignment: Text.AlignVCenter
-            wrapMode: Text.Wrap
+        var picked = indexOfUuid(selectedUuid)
+        if (picked >= 0) {
+            return picked
+        }
+        var last = indexOfUuid(remembered.lastUsedPc)
+        if (last >= 0) {
+            return last
+        }
+        for (var i = 0; i < count; i++) {
+            var pc = computerModel.get(i)
+            if (pc.online && pc.paired) {
+                return i
+            }
+        }
+        for (i = 0; i < count; i++) {
+            if (computerModel.get(i).paired) {
+                return i
+            }
+        }
+        return 0
+    }
+
+    // What the hero card says and offers for a PC
+    function stateOf(pc)
+    {
+        if (!pc || pc.name === undefined) {
+            return { status: "", dot: Theme.subtle, action: "", checking: false }
+        }
+        if (pc.uuid === wakingUuid) {
+            return { status: qsTr("Waking up…"), long: qsTr("Waking up…"), dot: Theme.muted, action: "", checking: true }
+        }
+        if (pc.statusUnknown) {
+            return { status: qsTr("Checking…"), long: qsTr("Checking…"), dot: Theme.muted, action: "", checking: true }
+        }
+        if (!pc.online) {
+            return pc.wakeable
+                ? { status: qsTr("Asleep"), long: qsTr("Asleep"), dot: Theme.statusAsleep, action: "wake", checking: false }
+                : { status: qsTr("Offline"), long: qsTr("Offline"), dot: Theme.statusOffline, action: "", checking: false }
+        }
+        if (!pc.paired) {
+            return { status: qsTr("Not paired"), long: qsTr("Not paired · Pair once to use it"), dot: Theme.statusNotPaired, action: "pair", checking: false }
+        }
+        return { status: qsTr("Awake"), long: pc.busy ? qsTr("Awake · Your session is still running") : qsTr("Awake · Ready to connect"),
+                 dot: Theme.statusAwake, action: "connect", checking: false }
+    }
+
+    function actionText(action)
+    {
+        switch (action) {
+        case "connect": return qsTr("Connect")
+        case "wake": return qsTr("Wake and connect")
+        case "pair": return qsTr("Pair")
+        }
+        return ""
+    }
+
+    function heroAction()
+    {
+        var state = stateOf(hero)
+        if (state.action === "connect") {
+            connectTo(heroIndex)
+        }
+        else if (state.action === "wake") {
+            wakingUuid = hero.uuid
+            wakeTimeout.restart()
+            computerModel.wakeComputer(heroIndex)
+        }
+        else if (state.action === "pair") {
+            pairWith(heroIndex)
         }
     }
 
-    model: computerModel
+    // A PC we woke has come online: carry on and connect
+    function continueWaking()
+    {
+        if (!wakingUuid) {
+            return
+        }
+        var index = indexOfUuid(wakingUuid)
+        var pc = computerModel.get(index)
+        if (index >= 0 && pc.online) {
+            wakingUuid = ""
+            wakeTimeout.stop()
+            if (pc.paired) {
+                connectTo(index)
+            }
+        }
+    }
 
-    delegate: NavigableItemDelegate {
-        width: 300; height: 320;
-        grid: pcGrid
+    Timer {
+        id: wakeTimeout
+        interval: 90000
+        onTriggered: {
+            var index = indexOfUuid(home.wakingUuid)
+            home.wakingUuid = ""
+            messageDialog.show(qsTr("%1 didn't wake up").arg(index >= 0 ? computerModel.get(index).name : qsTr("The PC")),
+                               qsTr("Check that it's plugged in and that Wake-on-LAN is turned on in its settings."))
+        }
+    }
 
-        property alias pcContextMenu : pcContextMenuLoader.item
+    // Connect goes straight to the desktop; a running session is resumed instead
+    function connectTo(index)
+    {
+        var pc = computerModel.get(index)
+        if (!pc.serverSupported) {
+            messageDialog.show(qsTr("Update Stand-In Server on %1").arg(pc.name),
+                               qsTr("The server on this PC is too old for this version of Stand-In."))
+            return
+        }
 
-        Image {
-            id: pcIcon
+        remembered.lastUsedPc = pc.uuid
+        selectedUuid = pc.uuid
+
+        var appModel = Qt.createQmlObject('import AppModel 1.0; AppModel {}', home, '')
+        appModel.initialize(ComputerManager, index, false)
+
+        var runningId = appModel.getRunningAppId()
+        var appIndex = runningId !== 0 ? appModel.findAppById(runningId) : appModel.findApp("Desktop")
+        if (appIndex < 0) {
+            appIndex = appModel.getDirectLaunchAppIndex()
+        }
+        if (appIndex < 0) {
+            // No desktop entry: let the user choose
+            showAllApps(index)
+            return
+        }
+
+        var component = Qt.createComponent("StreamSegue.qml")
+        var segue = component.createObject(stackView, {
+                                               "appName": pc.name,
+                                               "session": appModel.createSessionForApp(appIndex),
+                                               "isResume": runningId !== 0
+                                           })
+        stackView.push(segue)
+    }
+
+    function showAllApps(index)
+    {
+        var component = Qt.createComponent("AppView.qml")
+        var appView = component.createObject(stackView, {"computerIndex": index, "objectName": computerModel.get(index).name})
+        stackView.push(appView)
+    }
+
+    function pairWith(index)
+    {
+        var pin = computerModel.generatePinString()
+        computerModel.pairComputer(index, pin)
+        pairDialog.pcName = computerModel.get(index).name
+        pairDialog.pin = pin
+        pairDialog.open()
+    }
+
+    function pairingComplete(error)
+    {
+        pairDialog.close()
+        if (error !== undefined) {
+            messageDialog.show(qsTr("Couldn't pair with %1").arg(pairDialog.pcName), error)
+        }
+    }
+
+    Flickable {
+        anchors.fill: parent
+        contentHeight: column.implicitHeight + Theme.spaceLg
+        boundsBehavior: Flickable.StopAtBounds
+        clip: true
+
+        ColumnLayout {
+            id: column
+            width: Math.min(Theme.sizeContentWidth, home.width - 2 * Theme.sizeGutter)
             anchors.horizontalCenter: parent.horizontalCenter
-            source: "qrc:/res/desktop_windows-48px.svg"
-            sourceSize {
-                width: 200
-                height: 200
+            // Sit a little above the middle of tall windows
+            y: Math.max(0, (home.height - implicitHeight) * 0.4)
+            spacing: 0
+
+            SiSectionLabel {
+                text: qsTr("Your PCs")
+                topPadding: Theme.spaceXs
             }
-        }
 
-        Image {
-            // TODO: Tooltip
-            id: stateIcon
-            anchors.horizontalCenter: pcIcon.horizontalCenter
-            anchors.verticalCenter: pcIcon.verticalCenter
-            anchors.verticalCenterOffset: !model.online ? -18 : -16
-            visible: !model.statusUnknown && (!model.online || !model.paired)
-            source: !model.online ? "qrc:/res/warning_FILL1_wght300_GRAD200_opsz24.svg" : "qrc:/res/baseline-lock-24px.svg"
-            sourceSize {
-                width: !model.online ? 75 : 70
-                height: !model.online ? 75 : 70
-            }
-        }
+            // The PC you most likely want
+            SiCard {
+                id: heroCard
+                Layout.fillWidth: true
+                implicitHeight: heroColumn.implicitHeight + 2 * Theme.spaceLg
+                visible: { home.revision; return computerModel.rowCount() > 0 }
 
-        BusyIndicator {
-            id: statusUnknownSpinner
-            anchors.horizontalCenter: pcIcon.horizontalCenter
-            anchors.verticalCenter: pcIcon.verticalCenter
-            anchors.verticalCenterOffset: -15
-            width: 75
-            height: 75
-            visible: model.statusUnknown
-            running: visible
-        }
+                readonly property var state: home.stateOf(home.hero)
 
-        Label {
-            id: pcNameText
-            text: model.name
+                ColumnLayout {
+                    id: heroColumn
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 0
 
-            width: parent.width
-            anchors.top: pcIcon.bottom
-            anchors.bottom: parent.bottom
-            font.pointSize: 36
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
-            elide: Text.ElideRight
-        }
+                    Item {
+                        Layout.alignment: Qt.AlignHCenter
+                        implicitWidth: 48
+                        implicitHeight: 48
 
-        Loader {
-            id: pcContextMenuLoader
-            asynchronous: true
-            sourceComponent: NavigableMenu {
-                id: pcContextMenu
-                initiator: pcContextMenuLoader.parent
-                MenuItem {
-                    text: qsTr("PC Status: %1").arg(model.online ? qsTr("Online") : qsTr("Offline"))
-                    font.bold: true
-                    enabled: false
-                }
-                NavigableMenuItem {
-                    text: qsTr("View All Apps")
-                    onTriggered: {
-                        var component = Qt.createComponent("AppView.qml")
-                        var appView = component.createObject(stackView, {"computerIndex": index, "objectName": model.name, "showHiddenGames": true})
-                        stackView.push(appView)
+                        SiIcon {
+                            anchors.fill: parent
+                            visible: !heroCard.state.checking
+                            glyph: "tower"
+                            sourceSize: Qt.size(48, 48)
+                        }
+
+                        SiSpinner {
+                            anchors.centerIn: parent
+                            visible: heroCard.state.checking
+                            size: 40
+                        }
                     }
-                    visible: model.online && model.paired
-                }
-                NavigableMenuItem {
-                    text: qsTr("Wake PC")
-                    onTriggered: computerModel.wakeComputer(index)
-                    visible: !model.online && model.wakeable
-                }
-                NavigableMenuItem {
-                    text: qsTr("Test Network")
-                    onTriggered: {
-                        computerModel.testConnectionForComputer(index)
-                        testConnectionDialog.open()
-                    }
-                }
 
-                NavigableMenuItem {
-                    text: qsTr("Rename PC")
-                    onTriggered: {
-                        renamePcDialog.pcIndex = index
-                        renamePcDialog.originalName = model.name
-                        renamePcDialog.open()
+                    Label {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: Theme.spaceXs
+                        Layout.maximumWidth: heroCard.width - 2 * Theme.spaceXl - 2 * Theme.sizeIconButton
+                        text: home.hero.name || ""
+                        font: Theme.display
+                        color: Theme.text
+                        elide: Text.ElideRight
+                    }
+
+                    Label {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: 2
+                        text: heroCard.state.long || ""
+                        font: Theme.body
+                        color: Theme.muted
+                    }
+
+                    SiButton {
+                        id: heroButton
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: Theme.spaceMd
+                        Layout.preferredWidth: Theme.sizeHeroButtonWidth
+                        large: true
+                        visible: heroCard.state.action !== ""
+                        text: home.actionText(heroCard.state.action)
+                        onClicked: home.heroAction()
+
+                        KeyNavigation.down: pcRow.count > 0 ? pcRow : addTile
+                        KeyNavigation.right: moreButton
+                    }
+
+                    // Keeps the card the same height when there's no button
+                    Item {
+                        visible: !heroButton.visible
+                        Layout.topMargin: Theme.spaceMd
+                        implicitHeight: Theme.sizeButtonLarge
                     }
                 }
-                NavigableMenuItem {
-                    text: qsTr("Delete PC")
-                    onTriggered: {
-                        deletePcDialog.pcIndex = index
-                        deletePcDialog.pcName = model.name
-                        deletePcDialog.open()
+
+                SiIconButton {
+                    id: moreButton
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.margins: Theme.spaceSm
+                    iconName: "more"
+                    tip: qsTr("More")
+                    flat: true
+                    onClicked: pcMenu.popup(moreButton, moreButton.width - pcMenu.width, moreButton.height + 4)
+
+                    KeyNavigation.left: heroButton
+                    KeyNavigation.down: heroButton
+                }
+            }
+
+            // No PCs yet
+            SiCard {
+                Layout.fillWidth: true
+                implicitHeight: emptyColumn.implicitHeight + 2 * Theme.spaceXl
+                visible: !heroCard.visible
+
+                ColumnLayout {
+                    id: emptyColumn
+                    anchors.centerIn: parent
+                    width: parent.width - 2 * Theme.spaceXl
+                    spacing: Theme.spaceXs
+
+                    SiSpinner {
+                        Layout.alignment: Qt.AlignHCenter
+                        size: 40
+                        visible: StreamingPreferences.enableMdns
+                    }
+
+                    Label {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: Theme.spaceXs
+                        text: StreamingPreferences.enableMdns ? qsTr("Looking for your PCs…") : qsTr("Add your PC")
+                        font: Theme.title
+                        color: Theme.text
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignHCenter
+                        text: StreamingPreferences.enableMdns
+                              ? qsTr("Stand-In finds PCs on your network and on Tailscale.")
+                              : qsTr("Automatic discovery is off, so add your PC by its name or address.")
+                        font: Theme.body
+                        color: Theme.muted
+                        wrapMode: Text.Wrap
+                    }
+
+                    SiButton {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.topMargin: Theme.spaceXs
+                        kind: StreamingPreferences.enableMdns ? "text" : "primary"
+                        text: qsTr("Add PC manually")
+                        onClicked: addPcDialog.open()
                     }
                 }
-                NavigableMenuItem {
-                    text: qsTr("View Details")
-                    onTriggered: {
-                        showPcDetailsDialog.pcDetails = model.details
-                        showPcDetailsDialog.open()
+            }
+
+            // Every PC, plus Add PC
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.topMargin: Theme.spaceSm
+                spacing: Theme.spaceSm
+
+                ListView {
+                    id: pcRow
+                    Layout.preferredWidth: Math.min(contentWidth, column.width - addTile.width - Theme.spaceSm)
+                    Layout.preferredHeight: Theme.sizeTileHeight
+                    orientation: ListView.Horizontal
+                    spacing: Theme.spaceSm
+                    clip: true
+                    model: computerModel
+                    boundsBehavior: Flickable.StopAtBounds
+                    keyNavigationEnabled: true
+                    highlightFollowsCurrentItem: true
+                    highlightMoveDuration: Theme.motionNormal
+
+                    KeyNavigation.up: heroButton.visible ? heroButton : moreButton
+                    KeyNavigation.right: addTile
+                    Keys.onRightPressed: (event) => {
+                        if (currentIndex < count - 1) {
+                            incrementCurrentIndex()
+                        }
+                        else {
+                            addTile.forceActiveFocus(Qt.TabFocus)
+                        }
+                    }
+                    Keys.onReturnPressed: currentItem.clicked()
+                    Keys.onEnterPressed: currentItem.clicked()
+
+                    delegate: SiTile {
+                        readonly property var state: { home.revision; return home.stateOf(computerModel.get(index)) }
+
+                        name: model.name
+                        status: state.status
+                        statusColor: state.dot
+                        checking: state.checking
+                        selected: index === home.heroIndex
+                        focusPolicy: Qt.NoFocus
+
+                        // Focus is on the list; draw the ring on the current tile
+                        SiFocusRing {
+                            target: pcRow
+                            visible: pcRow.activeFocus && pcRow.currentIndex === index && InputMode.keyboard
+                            ringRadius: Theme.radiusMd
+                        }
+
+                        onClicked: {
+                            pcRow.currentIndex = index
+                            home.selectedUuid = model.uuid
+                        }
+
+                        onPressAndHold: {
+                            home.selectedUuid = model.uuid
+                            pcMenu.popup()
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            acceptedButtons: Qt.RightButton
+                            onClicked: parent.pressAndHold()
+                        }
                     }
                 }
-            }
-        }
 
-        onClicked: {
-            if (model.online) {
-                if (!model.serverSupported) {
-                    errorDialog.text = qsTr("The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.").arg(model.name)
-                    errorDialog.helpText = ""
-                    errorDialog.open()
+                SiAddTile {
+                    id: addTile
+                    text: qsTr("Add PC")
+                    onClicked: addPcDialog.open()
+
+                    KeyNavigation.left: pcRow
+                    KeyNavigation.up: heroButton.visible ? heroButton : moreButton
                 }
-                else if (model.paired) {
-                    // go to game view
-                    var component = Qt.createComponent("AppView.qml")
-                    var appView = component.createObject(stackView, {"computerIndex": index, "objectName": model.name})
-                    stackView.push(appView)
-                }
-                else {
-                    var pin = computerModel.generatePinString()
 
-                    // Kick off pairing in the background
-                    computerModel.pairComputer(index, pin)
-
-                    // Display the pairing dialog
-                    pairDialog.pin = pin
-                    pairDialog.open()
-                }
-            } else if (!model.online) {
-                // Using open() here because it may be activated by keyboard
-                pcContextMenu.open()
+                Item { Layout.fillWidth: true }
             }
-        }
-
-        onPressAndHold: {
-            // popup() ensures the menu appears under the mouse cursor
-            if (pcContextMenu.popup) {
-                pcContextMenu.popup()
-            }
-            else {
-                // Qt 5.9 doesn't have popup()
-                pcContextMenu.open()
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            acceptedButtons: Qt.RightButton;
-            onClicked: {
-                parent.pressAndHold()
-            }
-        }
-
-        Keys.onMenuPressed: {
-            // We must use open() here so the menu is positioned on
-            // the ItemDelegate and not where the mouse cursor is
-            pcContextMenu.open()
-        }
-
-        Keys.onDeletePressed: {
-            deletePcDialog.pcIndex = index
-            deletePcDialog.pcName = model.name
-            deletePcDialog.open()
         }
     }
 
-    ErrorMessageDialog {
-        id: errorDialog
+    // What you can do with the PC in the big card
+    SiMenu {
+        id: pcMenu
 
-        // Using Setup-Guide here instead of Troubleshooting because it's likely that users
-        // will arrive here by forgetting to enable GameStream or not forwarding ports.
-        helpUrl: "https://github.com/moonlight-stream/moonlight-docs/wiki/Setup-Guide"
+        SiMenuItem {
+            text: qsTr("All apps")
+            iconName: "apps"
+            visible: home.hero.online === true && home.hero.paired === true
+            onTriggered: home.showAllApps(home.heroIndex)
+        }
+        SiMenuItem {
+            text: qsTr("Wake")
+            iconName: "power"
+            visible: home.hero.online === false && home.hero.wakeable === true
+            onTriggered: computerModel.wakeComputer(home.heroIndex)
+        }
+        SiMenuItem {
+            text: qsTr("Rename")
+            onTriggered: {
+                renameDialog.pcIndex = home.heroIndex
+                renameDialog.open()
+            }
+        }
+        SiMenuItem {
+            text: qsTr("Test network")
+            iconName: "globe"
+            onTriggered: {
+                computerModel.testConnectionForComputer(home.heroIndex)
+                testConnectionDialog.open()
+            }
+        }
+        SiMenuItem {
+            text: qsTr("Remove")
+            danger: true
+            onTriggered: {
+                removeDialog.pcIndex = home.heroIndex
+                removeDialog.open()
+            }
+        }
     }
 
-    NavigableMessageDialog {
+    SiDialog {
         id: pairDialog
-        closePolicy: Popup.CloseOnEscape
 
-        // don't allow edits to the rest of the window while open
-        property string pin : "0000"
-        text:qsTr("Please enter %1 on your host PC. This dialog will close when pairing is completed.").arg(pin)+"\n\n"+
-             qsTr("If your host PC is running Sunshine, navigate to the Sunshine web UI to enter the PIN.")
-        standardButtons: Dialog.Cancel
-        onRejected: {
-            // FIXME: We should interrupt pairing here
+        property string pcName
+        property string pin: "0000"
+
+        title: qsTr("Pair with %1").arg(pcName)
+        text: qsTr("On %1, open Stand-In from the tray and enter this code. You only do this once.").arg(pcName)
+
+        // FIXME: closing doesn't interrupt the pairing attempt yet
+        onOpened: pairCancel.forceActiveFocus(Qt.TabFocus)
+
+        Row {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: Theme.spaceXs
+
+            Repeater {
+                model: pairDialog.pin.split("")
+
+                Rectangle {
+                    width: 56
+                    height: 64
+                    radius: Theme.radiusSm
+                    color: Theme.raised
+                    border.width: 1
+                    border.color: Theme.border
+
+                    Label {
+                        anchors.centerIn: parent
+                        text: modelData
+                        font.family: Theme.fontFamily
+                        font.pixelSize: 32
+                        font.weight: Font.Bold
+                        color: Theme.text
+                    }
+                }
+            }
+        }
+
+        SiStatus {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: Theme.spaceXs
+            checking: true
+            text: qsTr("Waiting for %1…").arg(pairDialog.pcName)
+        }
+
+        buttons: SiButton {
+            id: pairCancel
+            kind: "secondary"
+            text: qsTr("Cancel")
+            onClicked: pairDialog.close()
         }
     }
 
-    NavigableMessageDialog {
-        id: deletePcDialog
-        // don't allow edits to the rest of the window while open
-        property int pcIndex : -1
-        property string pcName : ""
-        text: qsTr("Are you sure you want to remove '%1'?").arg(pcName)
-        standardButtons: Dialog.Yes | Dialog.No
+    SiDialog {
+        id: renameDialog
 
-        onAccepted: {
-            computerModel.deleteComputer(pcIndex)
+        property int pcIndex: -1
+
+        title: qsTr("Rename PC")
+        onOpened: {
+            nameField.text = computerModel.get(pcIndex).name
+            nameField.selectAll()
+            nameField.forceActiveFocus()
+        }
+
+        function save() {
+            if (nameField.text.trim()) {
+                computerModel.renameComputer(pcIndex, nameField.text.trim())
+            }
+            close()
+        }
+
+        SiInput {
+            id: nameField
+            Layout.fillWidth: true
+            Keys.onReturnPressed: renameDialog.save()
+            Keys.onEnterPressed: renameDialog.save()
+        }
+
+        buttons: [
+            SiButton { kind: "secondary"; text: qsTr("Cancel"); onClicked: renameDialog.close() },
+            SiButton { text: qsTr("Save"); onClicked: renameDialog.save() }
+        ]
+    }
+
+    SiDialog {
+        id: removeDialog
+
+        property int pcIndex: -1
+        readonly property string pcName: { home.revision; return computerModel.get(pcIndex).name || "" }
+
+        title: qsTr("Remove %1?").arg(pcName)
+        text: qsTr("You'll need to pair with it again to use it.")
+        onOpened: removeCancel.forceActiveFocus(Qt.TabFocus)
+
+        buttons: [
+            SiButton {
+                id: removeCancel
+                kind: "secondary"
+                text: qsTr("Cancel")
+                onClicked: removeDialog.close()
+                Keys.onRightPressed: removeConfirm.forceActiveFocus(Qt.TabFocus)
+            },
+            SiButton {
+                id: removeConfirm
+                kind: "danger"
+                text: qsTr("Remove")
+                onClicked: {
+                    if (home.selectedUuid === computerModel.get(removeDialog.pcIndex).uuid) {
+                        home.selectedUuid = ""
+                    }
+                    computerModel.deleteComputer(removeDialog.pcIndex)
+                    removeDialog.close()
+                }
+                Keys.onLeftPressed: removeCancel.forceActiveFocus(Qt.TabFocus)
+            }
+        ]
+    }
+
+    SiDialog {
+        id: messageDialog
+
+        function show(title, text) {
+            messageDialog.title = title
+            messageDialog.text = text
+            open()
+        }
+
+        onOpened: messageOk.forceActiveFocus(Qt.TabFocus)
+
+        buttons: SiButton {
+            id: messageOk
+            text: qsTr("OK")
+            onClicked: messageDialog.close()
         }
     }
 
-    NavigableMessageDialog {
+    SiDialog {
         id: testConnectionDialog
-        closePolicy: Popup.CloseOnEscape
-        standardButtons: Dialog.Ok
 
+        property bool testing: true
+
+        title: qsTr("Network test")
         onAboutToShow: {
-            testConnectionDialog.text = qsTr("Moonlight is testing your network connection to determine if any required ports are blocked.") + "\n\n" + qsTr("This may take a few seconds…")
-            showSpinner = true
+            testing = true
+            text = qsTr("Checking whether this network lets Stand-In through. This takes a few seconds…")
         }
+        onOpened: testOk.forceActiveFocus(Qt.TabFocus)
 
         function connectionTestComplete(result, blockedPorts)
         {
+            testing = false
             if (result === -1) {
-                text = qsTr("The network test could not be performed because none of Moonlight's connection testing servers were reachable from this PC. Check your Internet connection or try again later.")
-                imageSrc = "qrc:/res/baseline-warning-24px.svg"
+                text = qsTr("The test couldn't run because the test servers weren't reachable. Check your internet connection and try again.")
             }
             else if (result === 0) {
-                text = qsTr("This network does not appear to be blocking Moonlight. If you still have trouble connecting, check your PC's firewall settings.") + "\n\n" + qsTr("If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC's Internet connection.")
-                imageSrc = "qrc:/res/baseline-check_circle_outline-24px.svg"
+                text = qsTr("This network isn't blocking Stand-In. If you still can't connect, check the firewall on your PC.")
             }
             else {
-                text = qsTr("Your PC's current network connection seems to be blocking Moonlight. Streaming over the Internet may not work while connected to this network.") + "\n\n" + qsTr("The following network ports were blocked:") + "\n"
-                text += blockedPorts
-                imageSrc = "qrc:/res/baseline-error_outline-24px.svg"
+                text = qsTr("This network is blocking Stand-In, so connecting over the internet may not work here. Blocked ports:") + "\n" + blockedPorts
             }
+        }
 
-            // Stop showing the spinner and show the image instead
-            showSpinner = false
+        SiSpinner {
+            Layout.alignment: Qt.AlignHCenter
+            visible: testConnectionDialog.testing
+        }
+
+        buttons: SiButton {
+            id: testOk
+            text: qsTr("OK")
+            onClicked: testConnectionDialog.close()
         }
     }
-
-    NavigableDialog {
-        id: renamePcDialog
-        property string label: qsTr("Enter the new name for this PC:")
-        property string originalName
-        property int pcIndex : -1;
-
-        standardButtons: Dialog.Ok | Dialog.Cancel
-
-        onOpened: {
-            // Force keyboard focus on the textbox so keyboard navigation works
-            editText.forceActiveFocus()
-        }
-
-        onClosed: {
-            editText.clear()
-        }
-
-        onAccepted: {
-            if (editText.text) {
-                computerModel.renameComputer(pcIndex, editText.text)
-            }
-        }
-
-        ColumnLayout {
-            Label {
-                text: renamePcDialog.label
-                font.bold: true
-            }
-
-            TextField {
-                id: editText
-                placeholderText: renamePcDialog.originalName
-                Layout.fillWidth: true
-                focus: true
-
-                Keys.onReturnPressed: {
-                    renamePcDialog.accept()
-                }
-
-                Keys.onEnterPressed: {
-                    renamePcDialog.accept()
-                }
-            }
-        }
-    }
-
-    NavigableMessageDialog {
-        id: showPcDetailsDialog
-        property string pcDetails : "";
-        text: showPcDetailsDialog.pcDetails
-        imageSrc: "qrc:/res/baseline-help_outline-24px.svg"
-        standardButtons: Dialog.Ok
-    }
-
-    ScrollBar.vertical: ScrollBar {}
 }
