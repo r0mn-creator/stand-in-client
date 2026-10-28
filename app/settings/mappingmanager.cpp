@@ -16,7 +16,7 @@ MappingManager::MappingManager()
 {
     QSettings settings;
 
-    // Load updated mappings from the Internet once per Moonlight launch
+    // Upstream loaded updated mappings from the Internet here; the fetcher is now a no-op
     if (s_MappingFetcher == nullptr) {
         s_MappingFetcher = new MappingFetcher();
         s_MappingFetcher->start();

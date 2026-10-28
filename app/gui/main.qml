@@ -5,7 +5,6 @@ import QtQuick.Window 2.2
 import QtQuick.Controls.Material 2.2
 
 import ComputerManager 1.0
-import AutoUpdateChecker 1.0
 import StreamingPreferences 1.0
 import SystemProperties 1.0
 import SdlGamepadKeyNavigation 1.0
@@ -331,9 +330,6 @@ ApplicationWindow {
                 }
             }
         }
-
-        // Updates are announced by the update checker; Stand-In has no release feed yet
-        Component.onCompleted: AutoUpdateChecker.onUpdateAvailable.connect(function(version, url) {})
     }
 
     ErrorMessageDialog {
