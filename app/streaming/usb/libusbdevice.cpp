@@ -4,7 +4,10 @@
 
 #include <atomic>
 #include <cerrno>
+#include <climits>
+#include <cstdlib>
 #include <cstring>
+#include <fstream>
 #include <map>
 #include <mutex>
 #include <thread>
@@ -99,6 +102,29 @@ int32_t errnoOf(libusb_transfer_status status)
     }
 }
 
+#ifdef __linux__
+std::string sysfsString(const std::string &busid, const char *attribute)
+{
+    std::ifstream in("/sys/bus/usb/devices/" + busid + "/" + attribute);
+    std::string value;
+    std::getline(in, value);
+    return value;
+}
+
+// A device another machine forwarded to this one; sending it back would loop
+bool isForwardedHere(libusb_device *dev)
+{
+    char path[PATH_MAX];
+    std::string link = "/sys/bus/usb/devices/" + busidOf(dev);
+    return realpath(link.c_str(), path) && strstr(path, "/vhci_hcd");
+}
+#else
+bool isForwardedHere(libusb_device *)
+{
+    return false;
+}
+#endif
+
 DeviceInfo describe(libusb_device *dev, const libusb_device_descriptor &desc, libusb_device_handle *handle)
 {
     DeviceInfo info;
@@ -119,15 +145,29 @@ DeviceInfo describe(libusb_device *dev, const libusb_device_descriptor &desc, li
     if (libusb_get_active_config_descriptor(dev, &config) == 0) {
         info.bConfigurationValue = config->bConfigurationValue;
         info.bNumInterfaces = config->bNumInterfaces;
+        for (int i = 0; i < config->bNumInterfaces; i++) {
+            if (config->interface[i].num_altsetting > 0) {
+                info.interfaceClasses.push_back(config->interface[i].altsetting[0].bInterfaceClass);
+            }
+        }
         libusb_free_config_descriptor(config);
     }
 
-    if (handle && desc.iProduct) {
-        unsigned char name[128];
-        if (libusb_get_string_descriptor_ascii(handle, desc.iProduct, name, sizeof(name)) > 0) {
-            info.name = reinterpret_cast<char *>(name);
+#ifdef __linux__
+    // The kernel already read the strings and lets anyone see them, even when
+    // the device itself is off limits to this user
+    info.name = sysfsString(info.busid, "product");
+    info.manufacturer = sysfsString(info.busid, "manufacturer");
+#endif
+    auto readString = [&](uint8_t index, std::string &out) {
+        unsigned char text[128];
+        if (out.empty() && handle && index &&
+            libusb_get_string_descriptor_ascii(handle, index, text, sizeof(text)) > 0) {
+            out = reinterpret_cast<char *>(text);
         }
-    }
+    };
+    readString(desc.iProduct, info.name);
+    readString(desc.iManufacturer, info.manufacturer);
     if (info.name.empty()) {
         char ids[16];
         snprintf(ids, sizeof(ids), "%04x:%04x", desc.idVendor, desc.idProduct);
@@ -356,12 +396,14 @@ std::vector<DeviceInfo> listLocalDevices()
     ssize_t count = libusb_get_device_list(Context::get().ctx(), &list);
     for (ssize_t i = 0; i < count; i++) {
         libusb_device_descriptor desc;
-        if (libusb_get_device_descriptor(list[i], &desc) || desc.bDeviceClass == LIBUSB_CLASS_HUB) {
+        if (libusb_get_device_descriptor(list[i], &desc) || desc.bDeviceClass == LIBUSB_CLASS_HUB ||
+            isForwardedHere(list[i])) {
             continue;
         }
         libusb_device_handle *handle = nullptr;
-        libusb_open(list[i], &handle);
+        int err = libusb_open(list[i], &handle);
         devices.push_back(describe(list[i], desc, handle));
+        devices.back().accessible = err != LIBUSB_ERROR_ACCESS;
         if (handle) {
             libusb_close(handle);
         }

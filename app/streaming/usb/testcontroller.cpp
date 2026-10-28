@@ -92,7 +92,9 @@ public:
         DeviceInfo i;
         i.busid = m_Busid;
         i.path = "stand-in/test-controller";
-        i.name = "Stand-In Test Controller";
+        i.name = "Test Controller";
+        i.manufacturer = "Stand-In";
+        i.interfaceClasses = {3};  // HID
         i.busnum = 1;
         i.devnum = 1;
         i.speed = 2;  // full speed

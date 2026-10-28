@@ -195,6 +195,7 @@ SOURCES += \
     streaming/audio/audio.cpp \
     streaming/audio/renderers/sdlaud.cpp \
     gui/computermodel.cpp \
+    gui/usbdevicemodel.cpp \
     gui/appmodel.cpp \
     streaming/bandwidth.cpp \
     streaming/streamutils.cpp \
@@ -232,6 +233,7 @@ HEADERS += \
     streaming/audio/renderers/renderer.h \
     streaming/audio/renderers/sdl.h \
     gui/computermodel.h \
+    gui/usbdevicemodel.h \
     gui/appmodel.h \
     streaming/video/decoder.h \
     streaming/bandwidth.h \
@@ -522,6 +524,7 @@ DEPENDPATH += $$PWD/../h264bitstream
 
 # Stand-In USB forwarding (USB/IP over the paired HTTPS connection)
 unix:!macx {
+    DEFINES += HAVE_USB_FORWARDING
     PKGCONFIG += libusb-1.0
     SOURCES += \
         streaming/usb/usbipexport.cpp \
@@ -553,7 +556,12 @@ unix:!macx: {
     appstream.files = deploy/linux/com.moonlight_stream.Moonlight.appdata.xml
     appstream.path = $$PREFIX/$$DATADIR/metainfo/
 
-    INSTALLS += target desktop icons
+    # Lets the signed-in user open USB devices to send them to the big PC
+    usbrules.files = deploy/linux/70-stand-in-usb.rules
+    usbrules.path = $$PREFIX/$$DATADIR/stand-in/
+    DEFINES += USB_RULES_PATH=\\\"$$PREFIX/$$DATADIR/stand-in/70-stand-in-usb.rules\\\"
+
+    INSTALLS += target desktop icons usbrules
 }
 win32 {
     RC_ICONS = moonlight.ico

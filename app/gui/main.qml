@@ -9,6 +9,7 @@ import AutoUpdateChecker 1.0
 import StreamingPreferences 1.0
 import SystemProperties 1.0
 import SdlGamepadKeyNavigation 1.0
+import UsbDevices 1.0
 
 ApplicationWindow {
     property bool pollingActive: false
@@ -32,6 +33,9 @@ ApplicationWindow {
         }
 
         SdlGamepadKeyNavigation.enable()
+
+        // Devices the user chose to send start going as soon as their PC is online
+        UsbDevices.initialize(ComputerManager)
     }
 
     Component.onCompleted: {
@@ -444,6 +448,24 @@ ApplicationWindow {
                 Keys.onDownPressed: {
                     stackView.currentItem.forceActiveFocus(Qt.TabFocus)
                 }
+            }
+
+            NavigableToolButton {
+                id: devicesButton
+                visible: UsbDevices.supported
+
+                iconSource: "qrc:/res/usb.svg"
+
+                onClicked: navigateTo("qrc:/gui/DevicesView.qml", DevicesView)
+
+                Keys.onDownPressed: {
+                    stackView.currentItem.forceActiveFocus(Qt.TabFocus)
+                }
+
+                ToolTip.delay: 1000
+                ToolTip.timeout: 3000
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr("USB devices")
             }
 
             NavigableToolButton {

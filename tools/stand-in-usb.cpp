@@ -1,6 +1,6 @@
 // Forward a USB device (or the built-in test controller) to a Stand-In server.
 //   stand-in-usb list
-//   stand-in-usb <host> <client-cert.pem> <client-key.pem> <busid|test>
+//   stand-in-usb <host> <client-cert.pem> <client-key.pem> <busid|test> [server-cert.pem]
 #include "../app/streaming/usb/usbipexport.h"
 
 #include <csignal>
@@ -26,8 +26,8 @@ int main(int argc, char **argv)
         }
         return 0;
     }
-    if (argc != 5) {
-        fprintf(stderr, "usage: %s list | <host> <cert.pem> <key.pem> <busid|test>\n", argv[0]);
+    if (argc != 5 && argc != 6) {
+        fprintf(stderr, "usage: %s list | <host> <cert.pem> <key.pem> <busid|test> [server-cert.pem]\n", argv[0]);
         return 2;
     }
 
@@ -43,6 +43,9 @@ int main(int argc, char **argv)
     server.host = argv[1];
     server.clientCertPem = slurp(argv[2]);
     server.clientKeyPem = slurp(argv[3]);
+    if (argc == 6) {
+        server.serverCertPem = slurp(argv[5]);
+    }
 
     usbip::Exporter exporter(server, std::move(backend));
     g_Exporter = &exporter;

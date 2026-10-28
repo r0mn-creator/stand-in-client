@@ -22,6 +22,9 @@ struct DeviceInfo {
     std::string busid;   // client-local id, e.g. "1-2.3"
     std::string path;    // free-form, shown in logs
     std::string name;
+    std::string manufacturer;
+    std::vector<uint8_t> interfaceClasses;  // one per interface of the active configuration
+    bool accessible = true;                 // this user is allowed to open it
     uint32_t busnum = 0;
     uint32_t devnum = 0;
     uint32_t speed = 0;  // Linux usb_device_speed: 1 low, 2 full, 3 high, 5 super
@@ -95,6 +98,7 @@ struct ServerIdentity {
     uint16_t httpsPort = 47984;
     std::string clientCertPem;
     std::string clientKeyPem;
+    std::string serverCertPem;  // pinned at pairing and must match; empty skips the check (test tool only)
 };
 
 // Connect, upgrade, export the device and serve it until the server or stop() ends it.
@@ -106,6 +110,9 @@ public:
 
     std::string run();
     void stop();
+
+    // Called from run()'s thread once the server has attached the device
+    std::function<void()> onAttached;
 
 private:
     std::string handshake(SSL *ssl);

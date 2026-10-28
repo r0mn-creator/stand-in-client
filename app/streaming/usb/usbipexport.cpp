@@ -181,6 +181,18 @@ void Exporter::stop()
     (void)!write(m_WakePipe[1], &b, 1);
 }
 
+static bool serverMatchesPin(SSL *ssl, const std::string &pinnedPem)
+{
+    BIO *bio = BIO_new_mem_buf(pinnedPem.data(), (int)pinnedPem.size());
+    X509 *pinned = PEM_read_bio_X509(bio, nullptr, nullptr, nullptr);
+    BIO_free(bio);
+    X509 *peer = SSL_get1_peer_certificate(ssl);
+    bool match = pinned && peer && X509_cmp(pinned, peer) == 0;
+    X509_free(pinned);
+    X509_free(peer);
+    return match;
+}
+
 std::string Exporter::run()
 {
     std::string error;
@@ -203,8 +215,8 @@ std::string Exporter::run()
     X509_free(cert);
     EVP_PKEY_free(key);
 
-    // The server's certificate was pinned at pairing time; the server, in turn,
-    // only accepts clients whose certificate it paired with
+    // The server's certificate was pinned at pairing time and is checked after the
+    // handshake; the server, in turn, only accepts clients it paired with
     SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, nullptr);
 
     int fd = connectTcp(m_Server.host, m_Server.httpsPort, error);
@@ -217,9 +229,14 @@ std::string Exporter::run()
     SSL_set_fd(ssl, fd);
     if (SSL_connect(ssl) != 1) {
         error = sslError("TLS handshake");
+    } else if (!m_Server.serverCertPem.empty() && !serverMatchesPin(ssl, m_Server.serverCertPem)) {
+        error = "the server's certificate doesn't match the one saved when pairing";
     } else {
         error = handshake(ssl);
         if (error.empty()) {
+            if (onAttached) {
+                onAttached();
+            }
             error = serve(ssl, fd);
         }
         SSL_shutdown(ssl);

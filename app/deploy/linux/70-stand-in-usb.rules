@@ -1,0 +1,4 @@
+# Stand-In: let the person signed in at this machine send its USB devices to
+# their big PC. Only the active local session gets access, like a webcam or
+# a game controller; remote and background users don't.
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", TAG+="uaccess"

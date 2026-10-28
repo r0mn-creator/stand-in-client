@@ -47,6 +47,7 @@
 #include "path.h"
 #include "utils.h"
 #include "gui/computermodel.h"
+#include "gui/usbdevicemodel.h"
 #include "gui/appmodel.h"
 #include "backend/autoupdatechecker.h"
 #include "backend/computermanager.h"
@@ -947,6 +948,11 @@ int main(int argc, char *argv[])
                                               [](QQmlEngine* qmlEngine, QJSEngine*) -> QObject* {
                                                   return new ComputerManager(StreamingPreferences::get(qmlEngine));
                                               });
+    qmlRegisterSingletonType<UsbDeviceModel>("UsbDevices", 1, 0,
+                                             "UsbDevices",
+                                             [](QQmlEngine*, QJSEngine*) -> QObject* {
+                                                 return new UsbDeviceModel();
+                                             });
     qmlRegisterSingletonType<AutoUpdateChecker>("AutoUpdateChecker", 1, 0,
                                                 "AutoUpdateChecker",
                                                 [](QQmlEngine*, QJSEngine*) -> QObject* {
