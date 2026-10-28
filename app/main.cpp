@@ -287,7 +287,7 @@ LONG WINAPI UnhandledExceptionHandler(struct _EXCEPTION_POINTERS *ExceptionInfo)
     }
 
     WCHAR dmpFileName[MAX_PATH];
-    swprintf_s(dmpFileName, L"%ls\\Moonlight-%I64u.dmp",
+    swprintf_s(dmpFileName, L"%ls\\Stand-In-%I64u.dmp",
                (PWCHAR)QDir::toNativeSeparators(Path::getLogDir()).utf16(), QDateTime::currentSecsSinceEpoch());
     QString qDmpFileName = QString::fromUtf16((const char16_t*)dmpFileName);
     HANDLE dumpHandle = CreateFileW(dmpFileName, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
@@ -465,7 +465,7 @@ int main(int argc, char *argv[])
     if (IS_UNSPECIFIED_HANDLE(oldConErr))
 #endif
     {
-        s_LoggerFile = new QFile(tempDir.filePath(QString("Moonlight-%1.log").arg(QDateTime::currentSecsSinceEpoch())));
+        s_LoggerFile = new QFile(tempDir.filePath(QString("Stand-In-%1.log").arg(QDateTime::currentSecsSinceEpoch())));
 
         // The log directory may be shared with other users (/tmp on macOS), so
         // we must never open a file or symlink that someone else planted there.
@@ -507,7 +507,7 @@ int main(int argc, char *argv[])
 
 #ifdef LOG_TO_FILE
     // Prune the oldest existing logs if there are more than 10
-    QStringList existingLogNames = tempDir.entryList(QStringList("Moonlight-*.log"), QDir::NoFilter, QDir::SortFlag::Time);
+    QStringList existingLogNames = tempDir.entryList(QStringList("Stand-In-*.log"), QDir::NoFilter, QDir::SortFlag::Time);
     for (int i = 10; i < existingLogNames.size(); i++) {
         qInfo() << "Removing old log file:" << existingLogNames.at(i);
         QFile(tempDir.filePath(existingLogNames.at(i))).remove();
@@ -936,9 +936,9 @@ int main(int argc, char *argv[])
 #endif
 
     // This is necessary to show our icon correctly on Wayland
-    app.setDesktopFileName("com.moonlight_stream.Moonlight");
-    qputenv("SDL_VIDEO_WAYLAND_WMCLASS", "com.moonlight_stream.Moonlight");
-    qputenv("SDL_VIDEO_X11_WMCLASS", "com.moonlight_stream.Moonlight");
+    app.setDesktopFileName("io.github.r0mn_creator.StandIn");
+    qputenv("SDL_VIDEO_WAYLAND_WMCLASS", "io.github.r0mn_creator.StandIn");
+    qputenv("SDL_VIDEO_X11_WMCLASS", "io.github.r0mn_creator.StandIn");
 
     // Stand-In ships its own typeface so every platform looks the same
     for (const char* weight : { "Regular", "Medium", "SemiBold", "Bold" }) {

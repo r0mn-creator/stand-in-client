@@ -152,13 +152,13 @@ win32 {
     LIBS += -llibssl -llibcrypto -lSDL2 -lSDL2_ttf -lavcodec -lavutil -lswscale -lopus -ldxgi -ld3d11 -llibplacebo
     CONFIG += ffmpeg libplacebo
 }
-win32:!winrt {
-    CONFIG += discord-rpc
-}
+# Discord Rich Presence stays off: the only Discord application id in the code
+# belongs to Moonlight, so it would show "Moonlight" in Discord. Add
+# CONFIG+=discord-rpc again once Stand-In has its own Discord application.
 macx {
     !disable-prebuilts {
         LIBS += -lssl.3 -lcrypto.3 -lavcodec.63 -lavutil.61 -lswscale.10 -lopus.0 -lSDL2 -lSDL2_ttf -lplacebo
-        CONFIG += discord-rpc libplacebo
+        CONFIG += libplacebo
     }
 
     LIBS += -lobjc -framework VideoToolbox -framework AVFoundation -framework CoreVideo -framework CoreGraphics -framework CoreMedia -framework AppKit -framework Metal -framework QuartzCore
@@ -547,13 +547,13 @@ unix:!macx: {
 
     target.path = $$PREFIX/$$BINDIR/
 
-    desktop.files = deploy/linux/stand-in.desktop
+    desktop.files = deploy/linux/io.github.r0mn_creator.StandIn.desktop
     desktop.path = $$PREFIX/$$DATADIR/applications/
 
     icons.files = res/stand-in.svg
     icons.path = $$PREFIX/$$DATADIR/icons/hicolor/scalable/apps/
 
-    appstream.files = deploy/linux/com.moonlight_stream.Moonlight.appdata.xml
+    appstream.files = deploy/linux/io.github.r0mn_creator.StandIn.metainfo.xml
     appstream.path = $$PREFIX/$$DATADIR/metainfo/
 
     # Lets the signed-in user open USB devices to send them to the big PC
@@ -561,16 +561,16 @@ unix:!macx: {
     usbrules.path = $$PREFIX/$$DATADIR/stand-in/
     DEFINES += USB_RULES_PATH=\\\"$$PREFIX/$$DATADIR/stand-in/70-stand-in-usb.rules\\\"
 
-    INSTALLS += target desktop icons usbrules
+    INSTALLS += target desktop icons appstream usbrules
 }
 win32 {
-    RC_ICONS = moonlight.ico
-    QMAKE_TARGET_COMPANY = Moonlight Game Streaming Project
-    QMAKE_TARGET_DESCRIPTION = Moonlight Game Streaming Client
-    QMAKE_TARGET_PRODUCT = Moonlight
+    RC_ICONS = stand-in.ico
+    QMAKE_TARGET_COMPANY = Stand-In
+    QMAKE_TARGET_DESCRIPTION = Stand-In Client
+    QMAKE_TARGET_PRODUCT = Stand-In
 
     CONFIG -= embed_manifest_exe
-    QMAKE_LFLAGS += /MANIFEST:embed /MANIFESTINPUT:$${PWD}/Moonlight.exe.manifest
+    QMAKE_LFLAGS += /MANIFEST:embed /MANIFESTINPUT:$${PWD}/Stand-In.exe.manifest
 }
 macx {
     # Create Info.plist in object dir with the correct version string
@@ -579,7 +579,7 @@ macx {
 
     QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 
-    APP_BUNDLE_RESOURCES.files = moonlight.icns
+    APP_BUNDLE_RESOURCES.files = stand-in.icns
     APP_BUNDLE_RESOURCES.path = Contents/Resources
 
     APP_BUNDLE_PLIST.files = $$OUT_PWD/Info.plist

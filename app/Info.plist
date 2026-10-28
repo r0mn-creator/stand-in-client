@@ -5,17 +5,17 @@
 	<key>GCSupportsGameMode</key>
 	<true/>
 	<key>CFBundleExecutable</key>
-	<string>Moonlight</string>
+	<string>Stand-In</string>
 	<key>LSSupportsGameMode</key>
 	<true/>
 	<key>NSApplicationUpdateCycleEnabled</key>
 	<false/>
 	<key>CFBundleGetInfoString</key>
-	<string>Stream games and other applications from another PC</string>
+	<string>Use your big PC from here, on all your monitors</string>
 	<key>CFBundleIconFile</key>
-	<string>moonlight</string>
+	<string>stand-in</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.moonlight-stream.Moonlight</string>
+	<string>io.github.r0mn-creator.StandIn</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
 	<key>CFBundlePackageType</key>
@@ -43,7 +43,7 @@
 		<true/>
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Moonlight uses the local network to connect to your gaming PC for streaming.</string>
+	<string>Stand-In uses the local network to find and connect to your PC.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_nvstream._tcp</string>
@@ -53,7 +53,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>VERSION</string>
 	<key>CFBundleDisplayName</key>
-	<string>Moonlight</string>
+	<string>Stand-In</string>
     <key>LSApplicationCategoryType</key>
 	<string>public.app-category.games</string>
 </dict>

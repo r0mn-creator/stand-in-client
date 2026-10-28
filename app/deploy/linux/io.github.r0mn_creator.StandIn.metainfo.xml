@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>io.github.r0mn_creator.StandIn</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0-or-later</project_license>
+	<name>Stand-In</name>
+	<summary>Use your big PC from here, on all your monitors</summary>
+
+	<description>
+		<p>Stand-In lets a small computer anywhere in your home feel like it is plugged straight into your big PC: its screens, keyboard, mouse, pen, controllers and USB devices.</p>
+		<p>Pair with your PC once, then press Connect. Stand-In Client connects to a PC running Stand-In Server, Apollo or Sunshine.</p>
+		<p>Stand-In is built on Moonlight, the open-source game streaming client.</p>
+	</description>
+
+	<url type="homepage">https://github.com/r0mn-creator/stand-in-client</url>
+	<url type="bugtracker">https://github.com/r0mn-creator/stand-in-client/issues</url>
+	<url type="vcs-browser">https://github.com/r0mn-creator/stand-in-client</url>
+	<developer id="io.github.r0mn_creator">
+		<name>r0mn-creator</name>
+	</developer>
+	<launchable type="desktop-id">io.github.r0mn_creator.StandIn.desktop</launchable>
+	<provides>
+		<binary>stand-in</binary>
+	</provides>
+	<content_rating type="oars-1.1" />
+
+	<branding>
+		<color type="primary" scheme_preference="light">#E8EDF3</color>
+		<color type="primary" scheme_preference="dark">#12161C</color>
+	</branding>
+
+	<releases>
+		<release version="0.2.0" date="2026-10-28" />
+	</releases>
+</component>

@@ -3,6 +3,7 @@
     <DefineConstants>Debug</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
+    <OutputName>StandIn</OutputName>
     <OutputPath>$(BUILD_FOLDER)\</OutputPath>
     <IntermediateOutputPath>$(BUILD_FOLDER)\</IntermediateOutputPath>
   </PropertyGroup>
