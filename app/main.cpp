@@ -561,7 +561,7 @@ int main(int argc, char *argv[])
 
             if (!QFile("/dev/dri").exists()) {
                 qWarning() << "Unable to find a KMSDRM display device!";
-                qWarning() << "On the Raspberry Pi, you must enable the 'fake KMS' driver in raspi-config to use Moonlight outside of the GUI environment.";
+                qWarning() << "On the Raspberry Pi, you must enable the 'fake KMS' driver in raspi-config to use Stand-In outside of the GUI environment.";
             }
             else if (!qEnvironmentVariableIsSet("QT_QPA_EGLFS_KMS_CONFIG")) {
                 // HACK: Remove this when Qt is fixed to properly check for display support before picking a card
