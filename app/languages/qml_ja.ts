@@ -4,54 +4,54 @@
 <context>
     <name>AppView</name>
     <message>
-        <location filename="../gui/AppView.qml" line="143"/>
-        <location filename="../gui/AppView.qml" line="299"/>
+        <location filename="../gui/AppView.qml" line="+175"/>
+        <location line="+159"/>
         <source>Resume Game</source>
         <translation>ゲームを再開</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="169"/>
-        <location filename="../gui/AppView.qml" line="303"/>
+        <location line="-132"/>
+        <location line="+136"/>
         <source>Quit Game</source>
         <translation>ゲームを終了</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="299"/>
+        <location line="-4"/>
         <source>Launch Game</source>
         <translation>ゲームを起動</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="310"/>
+        <location line="+11"/>
         <source>Direct Launch</source>
         <translation>ダイレクト起動</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="314"/>
+        <location line="+4"/>
         <source>Launch this app immediately when the host is selected, bypassing the app selection grid.</source>
         <translation>ホストが選択された際、アプリ選択画面をスキップして直接このアプリを起動する。</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="322"/>
+        <location line="+8"/>
         <source>Hide Game</source>
         <translation>ゲームを非表示</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="326"/>
+        <location line="+4"/>
         <source>Hide this game from the app grid. To access hidden games, right-click on the host and choose %1.</source>
         <translation>アプリ画面からこのゲームを非表示にする。非表示のゲームにアクセスするには、ホストを右クリックして%1を選択してください。</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="326"/>
+        <location line="+0"/>
         <source>View All Apps</source>
         <translation>すべてのアプリを表示</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="341"/>
+        <location line="+15"/>
         <source>This computer doesn&apos;t seem to have any applications or some applications are hidden</source>
         <translation>このコンピュータにはアプリケーションが一切ないか、あるいは一部のアプリケーションが非表示になっています</translation>
     </message>
     <message>
-        <location filename="../gui/AppView.qml" line="354"/>
+        <location line="+13"/>
         <source>Are you sure you want to quit %1? Any unsaved progress will be lost.</source>
         <translation>本当に%1を終了しますか？未セーブの進行状況はすべて失われます。</translation>
     </message>
@@ -59,17 +59,17 @@
 <context>
     <name>CliPair</name>
     <message>
-        <location filename="../gui/CliPair.qml" line="8"/>
+        <location filename="../gui/CliPair.qml" line="+8"/>
         <source>Establishing connection to PC...</source>
         <translation>PCとの接続を確立しています...</translation>
     </message>
     <message>
-        <location filename="../gui/CliPair.qml" line="12"/>
+        <location line="+4"/>
         <source>Pairing... Please enter &apos;%1&apos; on %2.</source>
         <translation>ペアリング中... &apos;%1&apos; を %2 に入力してください。</translation>
     </message>
     <message>
-        <location filename="../gui/CliPair.qml" line="81"/>
+        <location line="+69"/>
         <source>Pairing completed successfully</source>
         <translation>ペアリング成功</translation>
     </message>
@@ -77,12 +77,12 @@
 <context>
     <name>CliQuitStreamSegue</name>
     <message>
-        <location filename="../gui/CliQuitStreamSegue.qml" line="9"/>
+        <location filename="../gui/CliQuitStreamSegue.qml" line="+9"/>
         <source>Establishing connection to PC...</source>
         <translation>PCとの接続を確立しています...</translation>
     </message>
     <message>
-        <location filename="../gui/CliQuitStreamSegue.qml" line="13"/>
+        <location line="+4"/>
         <source>Quitting app...</source>
         <translation>アプリを終了しています...</translation>
     </message>
@@ -90,17 +90,17 @@
 <context>
     <name>CliStartStreamSegue</name>
     <message>
-        <location filename="../gui/CliStartStreamSegue.qml" line="8"/>
+        <location filename="../gui/CliStartStreamSegue.qml" line="+8"/>
         <source>Establishing connection to PC...</source>
         <translation>PCとの接続を確立しています...</translation>
     </message>
     <message>
-        <location filename="../gui/CliStartStreamSegue.qml" line="12"/>
+        <location line="+4"/>
         <source>Loading app list...</source>
         <translation>アプリ一覧をロードしています...</translation>
     </message>
     <message>
-        <location filename="../gui/CliStartStreamSegue.qml" line="78"/>
+        <location line="+66"/>
         <source>Are you sure you want to quit %1? Any unsaved progress will be lost.</source>
         <translation>本当に%1を終了しますか？未セーブの進行状況はすべて失われます。</translation>
     </message>
@@ -108,99 +108,152 @@
 <context>
     <name>ComputerModel</name>
     <message>
-        <location filename="../gui/computermodel.cpp" line="50"/>
+        <location filename="../gui/computermodel.cpp" line="+52"/>
         <source>Online</source>
         <translation>オンライン</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="53"/>
+        <location line="+3"/>
         <source>Offline</source>
         <translation>オフライン</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="56"/>
-        <location filename="../gui/computermodel.cpp" line="68"/>
-        <location filename="../gui/computermodel.cpp" line="80"/>
-        <location filename="../gui/computermodel.cpp" line="82"/>
-        <location filename="../gui/computermodel.cpp" line="83"/>
+        <location line="+3"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+2"/>
+        <location line="+1"/>
         <source>Unknown</source>
         <translation>不明</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="62"/>
+        <location line="-21"/>
         <source>Paired</source>
         <translation>ペアされました</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="65"/>
+        <location line="+3"/>
         <source>Unpaired</source>
         <translation>ペア解除</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="72"/>
+        <location line="+7"/>
         <source>Name: %1</source>
         <translation>名前: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="73"/>
+        <location line="+1"/>
         <source>Status: %1</source>
         <translation>ステータス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="74"/>
+        <location line="+1"/>
         <source>Active Address: %1</source>
         <translation>アクティブなアドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="75"/>
+        <location line="+1"/>
         <source>UUID: %1</source>
         <translation>UUID: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="76"/>
+        <location line="+1"/>
         <source>Local Address: %1</source>
         <translation>ローカルアドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="77"/>
+        <location line="+1"/>
         <source>Remote Address: %1</source>
         <translation>リモートアドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="78"/>
+        <location line="+1"/>
         <source>IPv6 Address: %1</source>
         <translation>IPv6 アドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="79"/>
+        <location line="+1"/>
         <source>Manual Address: %1</source>
         <translation>マニュアルアドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="80"/>
+        <location line="+1"/>
         <source>MAC Address: %1</source>
         <translation>MACアドレス: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="81"/>
+        <location line="+1"/>
         <source>Pair State: %1</source>
         <translation>ペア状況: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="82"/>
+        <location line="+1"/>
         <source>Running Game ID: %1</source>
         <translation>実行中のゲームID: %1</translation>
     </message>
     <message>
-        <location filename="../gui/computermodel.cpp" line="83"/>
+        <location line="+1"/>
         <source>HTTPS Port: %1</source>
         <translation>HTTPSポート: %1</translation>
     </message>
 </context>
 <context>
+    <name>DevicesView</name>
+    <message>
+        <location filename="../gui/DevicesView.qml" line="+12"/>
+        <source>Devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Send to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Pair with a PC first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Online</source>
+        <translation type="unfinished">オンライン</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Offline</source>
+        <translation type="unfinished">オフライン</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>A device that&apos;s switched on is unplugged from this machine and plugged into your PC. Use it for wheels, flight sticks, pedals, drawing tablets and anything that needs its own driver on the PC.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Some devices are locked to this user. Run this once, then plug them in again:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Sending USB devices from this platform is coming soon.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>On this machine</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>No USB devices found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>GamepadMapper</name>
     <message>
-        <location filename="../gui/GamepadMapper.qml" line="4"/>
+        <location filename="../gui/GamepadMapper.qml" line="+4"/>
         <source>Gamepad Mapping</source>
         <translation>ゲームパッドのマッピング</translation>
     </message>
@@ -208,7 +261,7 @@
 <context>
     <name>NvHTTP</name>
     <message>
-        <location filename="../backend/nvhttp.cpp" line="381"/>
+        <location filename="../backend/nvhttp.cpp" line="+384"/>
         <source>Missing audio capture device. Reinstalling GeForce Experience should resolve this error.</source>
         <translation>オーディオキャプチャーデバイスがありません。GeForce Experienceを再インストールすることでこのエラーが解決されます。</translation>
     </message>
@@ -216,165 +269,269 @@
 <context>
     <name>PcView</name>
     <message>
-        <location filename="../gui/PcView.qml" line="21"/>
-        <source>Computers</source>
-        <translation>コンピュータ</translation>
+        <location filename="../gui/PcView.qml" line="+18"/>
+        <location line="+237"/>
+        <source>Your PCs</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="63"/>
-        <source>Unable to connect to the specified PC.</source>
-        <translation>指定したPCに接続できません。</translation>
+        <location line="-147"/>
+        <location line="+0"/>
+        <source>Waking up…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="66"/>
-        <source>This PC&apos;s Internet connection is blocking Moonlight. Streaming over the Internet may not work while connected to this network.</source>
-        <translation>このPCのインターネット接続がMoonlightをブロックしています。このネットワークに接続している間はインターネットでのストリーミングができない場合があります。</translation>
+        <location line="+3"/>
+        <location line="+0"/>
+        <source>Checking…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="69"/>
-        <source>Click the Help button for possible solutions.</source>
-        <translation>ヘルプボタンをクリックすると、可能な解決方法が表示されます。</translation>
+        <location line="+4"/>
+        <location line="+0"/>
+        <source>Asleep</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="100"/>
-        <source>Automatic PC discovery is disabled. Add your PC manually.</source>
-        <translation>PCの自動検出が無効になっています。手動でPCを追加してください。</translation>
+        <location line="+4"/>
+        <source>Not paired</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="99"/>
-        <source>Searching for compatible hosts on your local network...</source>
-        <translation>接続できるホストをローカルネットワーク上探しています...</translation>
+        <location line="+0"/>
+        <source>Not paired · Pair once to use it</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="184"/>
-        <source>Wake PC</source>
-        <translation>PCを起動</translation>
+        <location line="+2"/>
+        <source>Awake</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="189"/>
-        <source>Test Network</source>
-        <translation>ネットワークをテスト</translation>
+        <location line="+0"/>
+        <source>Awake · Your session is still running</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="197"/>
+        <location line="+0"/>
+        <source>Awake · Ready to connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Wake and connect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Pair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+44"/>
+        <source>%1 didn&apos;t wake up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>The PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Check that it&apos;s plugged in and that Wake-on-LAN is turned on in its settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Update Stand-In Server on %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The server on this PC is too old for this version of Stand-In.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Couldn&apos;t pair with %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+104"/>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Looking for your PCs…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Add your PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Stand-In finds PCs on your network and on Tailscale.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Automatic discovery is off, so add your PC by its name or address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Add PC manually</source>
+        <translation type="unfinished">手動でPCを追加</translation>
+    </message>
+    <message>
+        <location line="+75"/>
+        <source>Add PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>All apps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Wake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Test network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <location line="+115"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-99"/>
+        <source>Pair with %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>On %1, open Stand-In from the tray and enter this code. You only do this once.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Waiting for %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <location line="+32"/>
+        <location line="+19"/>
+        <source>Cancel</source>
+        <translation type="unfinished">キャンセル</translation>
+    </message>
+    <message>
+        <location line="-41"/>
         <source>Rename PC</source>
         <translation>PCの名前を変更</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="205"/>
-        <source>Delete PC</source>
-        <translation>PCを削除</translation>
+        <location line="+23"/>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="213"/>
-        <source>View Details</source>
-        <translation>詳細表示</translation>
+        <location line="+10"/>
+        <source>Remove %1?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="225"/>
-        <source>The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.</source>
-        <translation>%1のGeForce Experienceのバージョンは、このビルドのMoonlightではサポートされていません。%1からストリーミングするには、Moonlightをアップデートする必要があります。</translation>
+        <location line="+1"/>
+        <source>You&apos;ll need to pair with it again to use it.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="324"/>
-        <source>This may take a few seconds…</source>
-        <translation>これには数秒かかることがあります…</translation>
+        <location line="+40"/>
+        <location line="+38"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="335"/>
-        <source>This network does not appear to be blocking Moonlight. If you still have trouble connecting, check your PC&apos;s firewall settings.</source>
-        <translation>このネットワークはMoonlightをブロックしていないようです。それでも接続に問題がある場合は、PCのファイアウォール設定を確認してください。</translation>
+        <location line="-28"/>
+        <source>Network test</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="335"/>
-        <source>If you are trying to stream over the Internet, install the Moonlight Internet Hosting Tool on your gaming PC and run the included Internet Streaming Tester to check your gaming PC&apos;s Internet connection.</source>
-        <translation>インターネット経由でストリーミングを行う場合は、ゲーミングPCにMoonlight Internet Hosting Toolをインストールし、付属のInternet Streaming Testerを実行してゲーミングPCのインターネット接続を確認してください。</translation>
+        <location line="+3"/>
+        <source>Checking whether this network lets Stand-In through. This takes a few seconds…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="339"/>
-        <source>Your PC&apos;s current network connection seems to be blocking Moonlight. Streaming over the Internet may not work while connected to this network.</source>
-        <translation>PCの現在のネットワーク接続がMoonlightをブロックしているようです。このネットワークに接続している間はインターネットでのストリーミングができない場合があります。</translation>
+        <location line="+8"/>
+        <source>The test couldn&apos;t run because the test servers weren&apos;t reachable. Check your internet connection and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="339"/>
-        <source>The following network ports were blocked:</source>
-        <translation>次のネットワークポートがブロックされました:</translation>
+        <location line="+3"/>
+        <source>This network isn&apos;t blocking Stand-In. If you still can&apos;t connect, check the firewall on your PC.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="331"/>
-        <source>The network test could not be performed because none of Moonlight&apos;s connection testing servers were reachable from this PC. Check your Internet connection or try again later.</source>
-        <translation>このPCからMoonlightの接続テスト用サーバーにアクセスできなかったため、ネットワークテストを実行できませんでした。インターネット接続を確認するか、後ほど再試行してください。</translation>
+        <location line="+3"/>
+        <source>This network is blocking Stand-In, so connecting over the internet may not work here. Blocked ports:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/PcView.qml" line="170"/>
-        <source>PC Status: %1</source>
-        <translation>PCステータス: %1</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="170"/>
-        <source>Online</source>
-        <translation>オンライン</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="170"/>
+        <location line="-562"/>
+        <location line="+0"/>
         <source>Offline</source>
         <translation>オフライン</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="175"/>
-        <source>View All Apps</source>
-        <translation>すべてのアプリを表示</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="297"/>
-        <source>Please enter %1 on your host PC. This dialog will close when pairing is completed.</source>
-        <translation>接続される側のコンピュータに %1 を入力してください。このダイアログはペアリング終了時に閉じます。</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="298"/>
-        <source>If your host PC is running Sunshine, navigate to the Sunshine web UI to enter the PIN.</source>
-        <translation>コンピュータで Sunshine がはしっている場合、Sunshine のウエブUIにPINを入力してください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="310"/>
-        <source>Are you sure you want to remove &apos;%1&apos;?</source>
-        <translation>本当に &apos;%1&apos; を削除しますか？</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="324"/>
-        <source>Moonlight is testing your network connection to determine if any required ports are blocked.</source>
-        <translation>Moonlight はブロックされているポートがないかを確かめるためネットワーク接続テストを実施しています。</translation>
-    </message>
-    <message>
-        <location filename="../gui/PcView.qml" line="351"/>
-        <source>Enter the new name for this PC:</source>
-        <translation>このPCの新しい名前を入力してください:</translation>
     </message>
 </context>
 <context>
     <name>PendingPairingTask</name>
     <message>
-        <location filename="../backend/computermanager.cpp" line="604"/>
+        <location filename="../backend/computermanager.cpp" line="+604"/>
         <source>The PIN from the PC didn&apos;t match. Please try again.</source>
         <translation>PCからのPINが一致しませんでした。再度お試しください。</translation>
     </message>
     <message>
-        <location filename="../backend/computermanager.cpp" line="608"/>
+        <location line="+4"/>
         <source>You cannot pair while a previous session is still running on the host PC. Quit any running games or reboot the host PC, then try pairing again.</source>
         <translation>ホストPCで前回のセッションが実行している間はペアリングできません。実行中のゲームを終了するか、ホストPCを再起動した後に再度ペアリングしてください。</translation>
     </message>
     <message>
-        <location filename="../backend/computermanager.cpp" line="611"/>
+        <location line="+3"/>
         <source>Pairing failed. Please try again.</source>
         <translation>ペアリングが失敗しました。再度お試しください。</translation>
     </message>
     <message>
-        <location filename="../backend/computermanager.cpp" line="615"/>
+        <location line="+4"/>
         <source>Another pairing attempt is already in progress.</source>
         <translation>別のペアリング試行がすでに試行中です。</translation>
     </message>
     <message>
-        <location filename="../backend/computermanager.cpp" line="625"/>
+        <location line="+10"/>
         <source>GeForce Experience returned error: %1</source>
         <translation>GeForce Experienceがエラーを返しました: %1</translation>
     </message>
@@ -382,7 +539,7 @@
 <context>
     <name>PendingQuitTask</name>
     <message>
-        <location filename="../backend/computermanager.cpp" line="675"/>
+        <location line="+50"/>
         <source>The running game wasn&apos;t started by this PC. You must quit the game on the host PC manually or use the device that originally started the game.</source>
         <translation>実行中のゲームはこのPCで開始されたものではありません。ホストPCでゲームを手動で終了するか、最初にゲームを開始したデバイスを使用する必要があります。</translation>
     </message>
@@ -390,64 +547,64 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../cli/pair.cpp" line="80"/>
+        <location filename="../cli/pair.cpp" line="+80"/>
         <source>%1 is already paired</source>
         <translation>%1 は既にペアリングされています</translation>
     </message>
     <message>
-        <location filename="../cli/pair.cpp" line="109"/>
-        <location filename="../cli/quitstream.cpp" line="76"/>
-        <location filename="../cli/startstream.cpp" line="133"/>
+        <location line="+29"/>
+        <location filename="../cli/quitstream.cpp" line="+76"/>
+        <location filename="../cli/startstream.cpp" line="+133"/>
         <source>Failed to connect to %1</source>
         <translation>%1への接続に失敗</translation>
     </message>
     <message>
-        <location filename="../cli/quitstream.cpp" line="88"/>
-        <location filename="../cli/startstream.cpp" line="89"/>
-        <source>Computer %1 has not been paired. Please open Moonlight to pair before streaming.</source>
-        <translation>コンピュータ %1はペアリングされていません。ストリーミングを開始する前にMoonlightを開いてペアリングをしてください。</translation>
+        <location filename="../cli/quitstream.cpp" line="+12"/>
+        <location filename="../cli/startstream.cpp" line="-44"/>
+        <source>Computer %1 has not been paired. Please open Stand-In to pair before streaming.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../cli/quitstream.cpp" line="102"/>
-        <location filename="../cli/startstream.cpp" line="126"/>
+        <location line="+14"/>
+        <location filename="../cli/startstream.cpp" line="+37"/>
         <source>Quitting app failed, reason: %1</source>
         <translation>アプリの終了に失敗、理由: %1</translation>
     </message>
     <message>
-        <location filename="../cli/startstream.cpp" line="137"/>
+        <location filename="../cli/startstream.cpp" line="+11"/>
         <source>Failed to find application %1</source>
         <translation>アプリケーション%1の検出に失敗</translation>
     </message>
     <message>
-        <location filename="../cli/listapps.cpp" line="108"/>
-        <source>Computer %1 has not been paired. Please open Moonlight to pair before retrieving games list.</source>
-        <translation>コンピュータ %1 はペアされてません。ゲームリストを再取得する前にMoonlightwを開けてください。</translation>
+        <location filename="../cli/listapps.cpp" line="+108"/>
+        <source>Computer %1 has not been paired. Please open Stand-In to pair before retrieving games list.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>QPlatformTheme</name>
     <message>
-        <location filename="../main.cpp" line="867"/>
+        <location filename="../main.cpp" line="+873"/>
         <source>&amp;Yes</source>
         <translation>はい(&amp;Y)</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="868"/>
+        <location line="+1"/>
         <source>&amp;No</source>
         <translation>いいえ(&amp;N)</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="869"/>
+        <location line="+1"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="870"/>
+        <location line="+1"/>
         <source>Help</source>
         <translation>ヘルプ</translation>
     </message>
     <message>
-        <location filename="../main.cpp" line="871"/>
+        <location line="+1"/>
         <source>Cancel</source>
         <translation>キャンセル</translation>
     </message>
@@ -455,211 +612,211 @@
 <context>
     <name>QuitSegue</name>
     <message>
-        <location filename="../gui/QuitSegue.qml" line="13"/>
-        <source>Quitting %1...</source>
-        <translation>%1を終了しています...</translation>
+        <location filename="../gui/QuitSegue.qml" line="+15"/>
+        <source>Closing %1…</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Session</name>
     <message>
-        <location filename="../streaming/session.cpp" line="104"/>
+        <location filename="../streaming/session.cpp" line="+104"/>
         <source>No video received from host.</source>
         <translation>ホストから映像を受信していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="105"/>
+        <location line="+1"/>
         <source>Check your firewall and port forwarding rules for port(s): %1</source>
         <translation>ファイアウォールと次のポートのポートフォワーディングルールを確認してください: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="110"/>
+        <location line="+5"/>
         <source>Your network connection isn&apos;t performing well. Reduce your video bitrate setting or try a faster connection.</source>
         <translation>ネットワーク接続がうまくいっていません。ビデオビットレートの設定を下げるか、より高速な回線を使用してください。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="116"/>
+        <location line="+6"/>
         <source>Something went wrong on your host PC when starting the stream.</source>
         <translation>ストリーミングを開始する際に、ホストPCで何か問題が発生しました。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="117"/>
+        <location line="+1"/>
         <source>Make sure you don&apos;t have any DRM-protected content open on your host PC. You can also try restarting your host PC.</source>
         <translation>ホストPCでDRM保護コンテンツを開いていないことを確認してください。また、ホストPCの再起動もお試しください。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="122"/>
+        <location line="+5"/>
         <source>The host PC reported a fatal video encoding error.</source>
         <translation>ホーストのPCが再起不能なビデオエンコードエラーを起こしました。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="123"/>
+        <location line="+1"/>
         <source>Try disabling HDR mode, changing the streaming resolution, or changing your host PC&apos;s display resolution.</source>
         <translation>HDRモードを無効にしたり、ストリーミング解像度を変更したり、ホストPCのディスプレイ解像度を変更したりしてみてください。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="131"/>
+        <location line="+8"/>
         <source>Connection terminated</source>
         <translation>接続が終了しました</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="132"/>
+        <location line="+1"/>
         <source>Error code: %1</source>
         <translation>エラーコード: %1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="958"/>
-        <source>The version of GeForce Experience on %1 is not supported by this build of Moonlight. You must update Moonlight to stream from %1.</source>
-        <translation>%1のGeForce Experienceのバージョンは、このビルドのMoonlightではサポートされていません。%1からストリーミングするには、Moonlightをアップデートする必要があります。</translation>
-    </message>
-    <message>
-        <location filename="../streaming/session.cpp" line="963"/>
+        <location line="+871"/>
         <source>Your selection to enable remote desktop mouse mode may cause problems in games.</source>
         <translation>リモートデスクトップマウスモードを有効にすると、ゲームで問題が発生する場合があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="967"/>
+        <location line="+4"/>
         <source>Your settings selection to force software decoding may cause poor streaming performance.</source>
         <translation>ソフトウェアデコードを強制する設定になっていると、ストリーミングのパフォーマンスが低下する場合があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1003"/>
+        <location line="+36"/>
         <source>Your host PC doesn&apos;t support encoding HEVC.</source>
         <translation>ホストPCがHEVCエンコーディングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1021"/>
+        <location line="+18"/>
         <source>Using software decoding due to your selection to force HEVC without GPU support. This may cause poor streaming performance.</source>
         <translation>GPUをサポートしていないHEVCを強制する設定を選択したため、ソフトウェアデコーディングを使用しています。これによってストリーミングパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="973"/>
+        <location line="-48"/>
         <source>Your host software or GPU doesn&apos;t support encoding AV1.</source>
         <translation>ホストソフトウェアまたはGPUがAV1エンコーディングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="991"/>
+        <location line="+18"/>
         <source>Using software decoding due to your selection to force AV1 without GPU support. This may cause poor streaming performance.</source>
         <translation>GPUサポートなしでAV1を強制する選択をしたため、ソフトウェアデコーディングを使用しています。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1068"/>
+        <location line="+77"/>
         <source>Your host PC doesn&apos;t support HDR streaming.</source>
         <translation>ホストPCがHDRストリーミングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1060"/>
+        <location line="-8"/>
         <source>HDR is not supported using the H.264 codec.</source>
         <translation>HDRはH.264コーデックでは対応していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1083"/>
+        <location line="+23"/>
         <source>This PC&apos;s GPU doesn&apos;t support AV1 Main10 decoding for HDR streaming.</source>
         <translation>このPCのGPUはHDRストリーミング用のAV1 Main10デコーディングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1064"/>
+        <location line="-19"/>
         <source>This PC&apos;s GPU doesn&apos;t support 10-bit HEVC or AV1 decoding for HDR streaming.</source>
         <translation>このPCのGPUはHDRストリーミング用の10ビットHEVCまたはAV1デコーディングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1116"/>
+        <location line="+52"/>
         <source>Your host PC and client PC don&apos;t support the same HDR video codecs.</source>
         <translation>ホストPCとクライアントPCが同じHDRビデオコーデックをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1209"/>
+        <location line="+71"/>
+        <source>An attached gamepad has no mapping and won&apos;t be usable.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
         <source>Video resolutions over 4K are not supported by the H.264 codec.</source>
         <translation>4Kを超えるビデオ解像度はH.264コーデックではサポートされていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1606"/>
+        <location line="+419"/>
         <source>Host returned error: %1</source>
         <translation>ホストがエラーを返しました：%1</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1040"/>
+        <location line="-588"/>
         <source>Using software decoding due to your selection to force H.264 without GPU support. This may cause poor streaming performance.</source>
         <translation>GPUサポートなしでH.264を強制する選択をしたため、ソフトウェアデコーディングを使用しています。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1050"/>
+        <location line="-82"/>
+        <source>The version of GeForce Experience on %1 is not supported by this build of Stand-In. You must update Stand-In to stream from %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+92"/>
         <source>Your host PC and client PC don&apos;t support the same video codecs. This may cause poor streaming performance.</source>
         <translation>ホストPCとクライアントPCが同じビデオコーデックをサポートしていません。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1053"/>
+        <location line="+3"/>
         <source>Your client GPU doesn&apos;t support H.264 decoding. This may cause poor streaming performance.</source>
         <translation>クライアントのGPUがH.264デコーディングをサポートしていません。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1089"/>
-        <location filename="../streaming/session.cpp" line="1107"/>
+        <location line="+36"/>
+        <location line="+18"/>
         <source>Using software decoding due to your selection to force HDR without GPU support. This may cause poor streaming performance.</source>
         <translation>GPUサポートなしでHDRを強制する選択をしたため、ソフトウェアデコーディングを使用しています。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1101"/>
+        <location line="-6"/>
         <source>This PC&apos;s GPU doesn&apos;t support HEVC Main10 decoding for HDR streaming.</source>
         <translation>このPCのGPUはHDRストリーミングのHEVC Main10デコーディングに対応していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1123"/>
+        <location line="+22"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming.</source>
         <translation>ホストPCがYUV 4:4:4ストリーミングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1131"/>
+        <location line="+8"/>
         <source>Your host PC doesn&apos;t support YUV 4:4:4 streaming for selected video codec.</source>
         <translation>ホストPCが選択されたビデオコーデックでのYUV 4:4:4ストリーミングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1146"/>
+        <location line="+15"/>
         <source>Using software decoding due to your selection to force YUV 4:4:4 without GPU support. This may cause poor streaming performance.</source>
         <translation>GPUサポートなしでYUV 4:4:4を強制する選択をしたため、ソフトウェアデコーディングを使用しています。これによりストリーミングのパフォーマンスが低下する可能性があります。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1152"/>
+        <location line="+6"/>
         <source>This PC&apos;s GPU doesn&apos;t support YUV 4:4:4 decoding for selected video codec.</source>
         <translation>このPCのGPUは選択されたビデオコーデックでのYUV 4:4:4ストリーミングをサポートしていません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1161"/>
+        <location line="+9"/>
         <source>GeForce Experience 3.0 or higher is required for 4K streaming.</source>
         <translation>4KストリーミングにはGeForce Experience 3.0以降が必要です。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1176"/>
+        <location line="+15"/>
         <source>Your selected surround sound setting is not supported by the current audio device.</source>
         <translation>選択したサラウンド音声設定は現在のオーディオデバイスに対応していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1182"/>
+        <location line="+6"/>
         <source>Failed to open audio device. Audio will be unavailable during this session.</source>
         <translation>オーディオデバイスのオープンに失敗しました。このセッションでは音声は利用できません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1187"/>
-        <source>An attached gamepad has no mapping and won&apos;t be usable. Visit the Moonlight help to resolve this.</source>
-        <translation>接続されたゲームパッドはマッピングされていないため、使用できません。この問題を解決するには、Moonlightのヘルプをご覧ください。</translation>
-    </message>
-    <message>
-        <location filename="../streaming/session.cpp" line="1205"/>
+        <location line="+23"/>
         <source>Your host PC&apos;s GPU doesn&apos;t support streaming video resolutions over 4K.</source>
         <translation>ホストPCのGPUは4Kを超えるビデオ解像度でのストリーミングに対応していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1223"/>
+        <location line="+18"/>
         <source>Your selection to force hardware decoding cannot be satisfied due to missing hardware decoding support on this PC&apos;s GPU.</source>
         <translation>このPCのGPUはハードウェアデコードに対応していないため、ハードウェアデコードを強制するという選択を満たすことができません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="1226"/>
+        <location line="+3"/>
         <source>Your codec selection and force hardware decoding setting are not compatible. This PC&apos;s GPU lacks support for decoding your chosen codec.</source>
         <translation>選択したコーデックとハードウェアデコードを強制する設定には互換性がありません。このPCのGPUは、選択したコーデックのデコードに対応していません。</translation>
     </message>
     <message>
-        <location filename="../streaming/session.cpp" line="2204"/>
+        <location line="+1001"/>
         <source>Unable to initialize video decoder. Please check your streaming settings and try again.</source>
         <translation>ビデオデコーダを初期化できませんでした。ストリーミングの設定を確認して再度お試しください。</translation>
     </message>
@@ -667,662 +824,846 @@
 <context>
     <name>SettingsView</name>
     <message>
-        <location filename="../gui/SettingsView.qml" line="13"/>
+        <location filename="../gui/SettingsView.qml" line="+16"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="116"/>
-        <source>Resolution and FPS</source>
-        <translation>解像度とFPS</translation>
+        <location line="+9"/>
+        <source>Display &amp; quality</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="124"/>
-        <source>Setting values too high for your PC or network connection may cause lag, stuttering, or errors.</source>
-        <translation>PCやネットワーク接続に対して大きすぎる値を設定すると、ラグやスタッタリング、エラーの原因となる場合があります。</translation>
+        <location line="+1"/>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="106"/>
-        <source>Basic Settings</source>
-        <translation>基本設定</translation>
+        <location line="+1"/>
+        <source>Input</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="250"/>
-        <source>720p</source>
-        <translation>720p</translation>
+        <location line="+1"/>
+        <location line="+584"/>
+        <source>Controllers</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="256"/>
-        <source>1080p</source>
-        <translation>1080p</translation>
+        <location line="-583"/>
+        <source>Devices</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="262"/>
-        <source>1440p</source>
-        <translation>1440p</translation>
+        <location line="+1"/>
+        <source>Appearance</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="268"/>
-        <source>4K</source>
-        <translation>4K</translation>
+        <location line="+1"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="375"/>
-        <source>Custom resolutions are not officially supported by GeForce Experience, so it will not set your host display resolution. You will need to set it manually while in game.</source>
-        <translation>カスタム解像度はGeForce Experienceで公式にサポートされていないため、ホストディスプレイの解像度は設定されません。ゲーム内で手動で設定する必要があります。</translation>
+        <location line="+1"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="376"/>
-        <source>Resolutions that are not supported by your client or host PC may cause streaming errors.</source>
-        <translation>クライアントやホストPCが対応していない解像度では、ストリーミングエラーが発生する可能性があります。</translation>
+        <location line="+177"/>
+        <source>‹  All settings</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="382"/>
-        <source>Enter a custom resolution:</source>
-        <translation>カスタム解像度を入力:</translation>
+        <location line="+44"/>
+        <source>Match screen %1 (%2 × %3)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="604"/>
+        <location line="+11"/>
+        <source>Custom (%1 × %2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+21"/>
+        <source>Custom…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Picture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Matches this screen (%1 × %2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Higher is sharper; lower is smoother on slow networks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Frame rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Matches this screen (%1 FPS).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Higher feels smoother.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Quality</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Adjusts to your network while you use it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Stays at the bitrate you set. Lower it if the picture stutters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Bitrate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>%1 Mbps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Show your PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <location line="+337"/>
+        <source>Full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-336"/>
+        <source>Borderless window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+333"/>
+        <source>In a window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-326"/>
+        <source>Show performance stats</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Frame rate, delay and quality in a corner of the screen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Keep this screen awake</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Custom resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Width and height in pixels.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <location line="+33"/>
+        <source>Cancel</source>
+        <translation type="unfinished">キャンセル</translation>
+    </message>
+    <message>
+        <location line="-32"/>
+        <location line="+33"/>
+        <source>Use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-26"/>
+        <source>Custom frame rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Frames per second, from 10 to 500.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Sound output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>5.1 surround</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>7.1 surround</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Play sound on the PC too</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Mute when Stand-In isn&apos;t the active window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Mouse and touch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Mouse works like</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>The pointer goes exactly where you point. Best for desktop work.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Raw movement. Best for games that capture the mouse.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>A desktop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A game</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Touch works like</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Direct touch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>A trackpad</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Swap left and right buttons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Reverse scrolling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Keyboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Send system shortcuts to the PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Alt+Tab, the Windows key and similar.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>In full screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Always</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>Swap A/B and X/Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>For a Nintendo-style button layout.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Use a controller as a mouse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Hold Start to switch between controller and mouse.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Always connect controller 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>The PC sees a controller even when none is plugged in here.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Use controllers in the background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Controllers keep working when Stand-In isn&apos;t the active window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>USB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>USB devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Send wheels, sticks, tablets and other devices to your PC.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Look</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Theme</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>More themes are on the way.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <source>Open Stand-In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+47"/>
+        <source>Restart Stand-In to finish changing the language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Video</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Video format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Automatic picks the best one both machines support.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>Video decoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Hardware only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Software only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>HDR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Brighter highlights when the PC and this screen both support it.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>This screen or decoder doesn&apos;t support HDR.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Full color detail (YUV 4:4:4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Sharper text, more bandwidth. Needs support on both machines.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Off is a little faster but can tear.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Smoother motion for a little more delay.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Allow very high bitrates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Raises the manual limit from 150 to 500 Mbps.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Find PCs automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Looks on your local network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Check for blocked networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Warn about a weak connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Sessions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Close the app on the PC when you disconnect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Tune games for streaming</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lets supported games adjust their settings while you&apos;re connected.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Show setup warnings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Show activity in Discord</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Stand-In Client</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Source code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Stand-In is free software under the GNU GPL v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Built on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>The streaming client this app grew from. GPL v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The Android client Stand-In for Android grew from. GPL v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The streaming server Stand-In Server grew from. GPL v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The typeface, by Rasmus Andersson. SIL Open Font License.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-680"/>
         <source>%1 FPS</source>
         <translation>%1 FPS</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="672"/>
-        <source>Video bitrate:</source>
-        <translation>映像ビットレート:</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="680"/>
-        <source>Lower the bitrate on slower connections. Raise the bitrate to increase image quality.</source>
-        <translation>低速回線ではビットレートを下げてください。画質を上げるにはビットレートを上げてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="702"/>
-        <source>Video bitrate: %1 Mbps</source>
-        <translation>映像ビットレート: %1 Mbps</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="732"/>
-        <source>Display mode</source>
-        <translation>表示モード</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="762"/>
-        <source>(Recommended)</source>
-        <translation>(推奨)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="743"/>
-        <location filename="../gui/SettingsView.qml" line="1218"/>
-        <source>Fullscreen</source>
-        <translation>全画面表示</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="812"/>
-        <source>Fullscreen generally provides the best performance, but borderless windowed may work better with features like macOS Spaces, Alt+Tab, screenshot tools, on-screen overlays, etc.</source>
-        <translation>一般的には全画面表示が最も優れたパフォーマンスを発揮しますが、macOSの操作スペース、Alt+Tab、スクリーンショットツール、オンスクリーンオーバーレイなどの機能を使用する場合は、ボーダレスウィンドウがより効果的です。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="748"/>
-        <source>Borderless windowed</source>
-        <translation>ボーダレスウィンドウ</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="182"/>
-        <source>Native</source>
-        <translation>ネイティブ</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="183"/>
-        <source>Native (Excluding Notch)</source>
-        <translation>ネイティブ（ノッチ除く）</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="718"/>
-        <source>Use Default (%1 Mbps)</source>
-        <translation>デフォルト設定を使用 (%1 Mbps)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="753"/>
-        <location filename="../gui/SettingsView.qml" line="1210"/>
-        <source>Windowed</source>
-        <translation>ウィンドウ</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="819"/>
+        <location line="+548"/>
         <source>V-Sync</source>
         <translation>垂直同期</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="829"/>
-        <source>Disabling V-Sync allows sub-frame rendering latency, but it can display visible tearing</source>
-        <translation>垂直同期を無効にすると、サブフレームのレンダリング遅延が発生しますが、目に見えるティアリングが表示されることがあります</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="836"/>
+        <location line="+7"/>
         <source>Frame pacing</source>
         <translation>フレームペーシング</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="846"/>
-        <source>Frame pacing reduces micro-stutter by delaying frames that come in too early</source>
-        <translation>フレーム・ペーシングは、早すぎるフレームを遅らせることで、マイクロスタッターを軽減します</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="856"/>
-        <source>Audio Settings</source>
-        <translation>音声設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="891"/>
+        <location line="-333"/>
         <source>Stereo</source>
         <translation>ステレオ</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="895"/>
-        <source>5.1 surround sound</source>
-        <translation>5.1サラウンドサウンド</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="899"/>
-        <source>7.1 surround sound</source>
-        <translation>7.1サラウンドサウンド</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="913"/>
-        <source>Mute host PC speakers while streaming</source>
-        <translation>ストリーミング中にホストPCのスピーカーをミュートする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="923"/>
-        <source>You must restart any game currently in progress for this setting to take effect</source>
-        <translation>この設定を有効にするには、現在進行中のゲームを再起動する必要があります</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="929"/>
-        <source>Mute audio stream when Moonlight is not the active window</source>
-        <translation>Moonlightがアクティブなウィンドウでないときに音声ストリームをミュートする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="940"/>
-        <source>Mutes Moonlight&apos;s audio when you Alt+Tab out of the stream or click on a different window.</source>
-        <translation>ストリーミングからAlt+Tabで抜けたり、別のウィンドウをクリックしたりすると、Moonlightの音声をミュートします。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="989"/>
-        <source>UI Settings</source>
-        <translation>UI設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="999"/>
+        <location line="+220"/>
         <source>Language</source>
         <translation>言語</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1025"/>
+        <location line="-495"/>
+        <location line="+54"/>
+        <location line="+65"/>
+        <location line="+378"/>
+        <location line="+64"/>
+        <location line="+12"/>
         <source>Automatic</source>
         <translation>自動</translation>
     </message>
     <message>
-        <location filename="../gui/SettingsView.qml" line="1160"/>
-        <source>You must restart Moonlight for this change to take effect</source>
-        <translation>この変更を有効にするには、Moonlightを再起動する必要があります</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1177"/>
-        <source>GUI display mode</source>
-        <translation>GUI表示モード</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1214"/>
+        <location line="-86"/>
         <source>Maximized</source>
         <translation>最大化</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1242"/>
-        <source>Show configuration warnings</source>
-        <translation>設定に関する警告を表示する</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1298"/>
-        <source>Input Settings</source>
-        <translation>入力設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1319"/>
-        <source>This enables seamless mouse control without capturing the client&apos;s mouse cursor. It is ideal for remote desktop usage but will not work in most games.</source>
-        <translation>これにより、クライアントのマウスカーソルをキャプチャすることなく、シームレスなマウスコントロールが可能になります。リモートデスクトップでの使用に最適ですが、ほとんどのゲームでは動作しません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1321"/>
-        <source>NOTE: Due to a bug in GeForce Experience, this option may not work properly if your host PC has multiple monitors.</source>
-        <translation>注: GeForce Experienceのバグにより、ホストPCにマルチモニターがある場合、このオプションは正しく動作しない可能性があります。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1621"/>
-        <source>AV1</source>
-        <translation>AV1</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1636"/>
-        <source>Enable HDR</source>
-        <translation>HDRを有効にする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1651"/>
-        <source>The stream will be HDR-capable, but some games may require an HDR monitor on your host PC to enable HDR mode.</source>
-        <translation>ストリームはHDR対応になりますが、一部のゲームではHDRモードを有効にするためにホストPCにHDRモニターが必要な場合があります。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1653"/>
-        <source>HDR streaming is not supported on this PC.</source>
-        <translation>このPCではHDRストリーミングはサポートされていません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1659"/>
-        <source>Enable YUV 4:4:4</source>
-        <translation>YUV 4:4:4を有効にする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1740"/>
-        <source>Show performance stats while streaming</source>
-        <translation>ストリーミング中にパフォーマンス統計を表示する</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1750"/>
-        <source>Display real-time stream performance information while streaming.</source>
-        <translation>ストリーミング中にリアルタイムのストリーム パフォーマンス情報を表示します。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1751"/>
-        <source>You can toggle it at any time while streaming using Ctrl+Alt+Shift+S or Select+L1+R1+X.</source>
-        <translation>ストリーミング中はいつでも、Ctrl+Alt+Shift+SまたはSelect+L1+R1+Xを使用して切り替えることができます。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1752"/>
-        <source>The performance overlay is not supported on Steam Link or Raspberry Pi.</source>
-        <translation>パフォーマンスオーバーレイはSteam LinkまたはRaspberry Piではサポートされていません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1340"/>
-        <source>NOTE: Certain keyboard shortcuts like Ctrl+Alt+Del on Windows cannot be intercepted by any application, including Moonlight.</source>
-        <translation>注: WindowsのCtrl+Alt+Delのような特定のキーボードショートカットは、Moonlightを含むいかなるアプリケーションでも傍受することができません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1403"/>
-        <source>Use touchscreen as a virtual trackpad</source>
-        <translation>タッチスクリーンを仮想トラックパッドとして使用する</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1420"/>
-        <source>Swap left and right mouse buttons</source>
-        <translation>マウスの左右のボタンを入れ替える</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1432"/>
-        <source>Reverse mouse scrolling direction</source>
-        <translation>マウスのスクロール方向を逆にする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1446"/>
-        <source>Gamepad Settings</source>
-        <translation>ゲームパッドの設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1456"/>
-        <source>Swap A/B and X/Y gamepad buttons</source>
-        <translation>ゲームパッドのA/BとX/Yボタンを入れ替える</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1466"/>
-        <source>This switches gamepads into a Nintendo-style button layout</source>
-        <translation>ゲームパッドを任天堂スタイルのボタン配置に変更します</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1472"/>
-        <source>Force gamepad #1 always connected</source>
-        <translation>ゲームパッド#1を常時接続するよう強制</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1482"/>
-        <source>Forces a single gamepad to always stay connected to the host, even if no gamepads are actually connected to this PC.</source>
-        <translation>実際にはゲームパッドがPCに接続されていなくても、1台のゲームパッドが常にホストに接続されているように強制します。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1320"/>
-        <source>You can toggle this while streaming using Ctrl+Alt+Shift+M.</source>
-        <translation>ストリーミング中でもCtrl+Alt+Shift+Mで切り替えることができます。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1490"/>
-        <source>Enable mouse control with gamepads by holding the &apos;Start&apos; button</source>
-        <translation>ゲームパッドで「スタート」ボタンを押しながらマウス操作ができるようにする</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1501"/>
-        <source>Process gamepad input when Moonlight is in the background</source>
-        <translation>Moonlightがバックグラウンドで動作しているときにゲームパッドの入力を処理する</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1512"/>
-        <source>Allows Moonlight to capture gamepad inputs even if it&apos;s not the current window in focus</source>
-        <translation>現在のウィンドウがフォーカスされていない場合でも、Moonlightがゲームパッドの入力をキャプチャできるようにします</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="949"/>
-        <source>Host Settings</source>
-        <translation>ホスト設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1521"/>
-        <source>Advanced Settings</source>
-        <translation>高度な設定</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="866"/>
-        <source>Audio configuration</source>
-        <translation>オーディオ構成</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1231"/>
-        <source>Show connection quality warnings</source>
-        <translation>接続品質に関する警告の表示</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1254"/>
-        <source>Discord Rich Presence integration</source>
-        <translation>Discord Rich Presenceの統合</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1264"/>
-        <source>Updates your Discord status to display the name of the game you&apos;re streaming.</source>
-        <translation>Discordのステータスを更新して、ストリーミングしているゲームの名前を表示します。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1483"/>
-        <source>Only enable this option when streaming a game that doesn&apos;t support gamepads being connected after startup.</source>
-        <translation>起動後のゲームパッドの接続をサポートしていないゲームをストリーミングする場合のみ、このオプションを有効にしてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1309"/>
-        <source>Optimize mouse for remote desktop instead of games</source>
-        <translation>ゲームではなくリモートデスクトップにマウスを最適化</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="512"/>
-        <location filename="../gui/SettingsView.qml" line="622"/>
-        <source>Custom (%1 FPS)</source>
-        <translation>カスタム (%1 FPS)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="527"/>
-        <source>Enter a custom frame rate:</source>
-        <translation>カスタムフレームを入力:</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="219"/>
-        <location filename="../gui/SettingsView.qml" line="228"/>
-        <location filename="../gui/SettingsView.qml" line="625"/>
-        <source>Custom</source>
-        <translation>カスタム</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="643"/>
-        <source>30 FPS</source>
-        <translation>30 FPS</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="648"/>
-        <source>60 FPS</source>
-        <translation>60 FPS</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1270"/>
-        <source>Keep the display awake while streaming</source>
-        <translation>ストリーミング中にディスプレイをスリープさせない</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1280"/>
-        <source>Prevents the screensaver from starting or the display from going to sleep while streaming.</source>
-        <translation>ストリーミング中にスクリーンセーバーの起動やディスプレイのスリープを防止します</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1331"/>
-        <source>Capture system keyboard shortcuts</source>
-        <translation>システムのキーボードショートカットをキャプチャ</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1339"/>
-        <source>This enables the capture of system-wide keyboard shortcuts like Alt+Tab that would normally be handled by the client OS while streaming.</source>
-        <translation>これにより、通常はストリーミング中にクライアントOSが処理するAlt+Tabなどのシステム全体のキーボードショートカットをキャプチャすることができます。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1369"/>
-        <source>in fullscreen</source>
-        <translation>フルスクリーン時</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1373"/>
-        <source>always</source>
-        <translation>常時</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1413"/>
-        <source>When checked, the touchscreen acts like a trackpad. When unchecked, the touchscreen will directly control the mouse pointer.</source>
-        <translation>チェックすると、タッチスクリーンはトラックパッドのように動作します。チェックを外すと、タッチスクリーンが直接マウスポインターを操作するようになります。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="959"/>
-        <source>Optimize game settings for streaming</source>
-        <translation>ストリーミング用にゲーム設定を最適化</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="970"/>
-        <source>Quit app on host PC after ending stream</source>
-        <translation>ストリーミング終了後にホストPCのアプリを終了させる</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="980"/>
-        <source>This will close the app or game you are streaming when you end your stream. You will lose any unsaved progress!</source>
-        <translation>ストリーミングを終了すると、ストリーミング中のアプリやゲームが終了します。保存されていない進行状況は失われます！</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1531"/>
-        <source>Video decoder</source>
-        <translation>映像デコーダ</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1556"/>
-        <location filename="../gui/SettingsView.qml" line="1609"/>
-        <source>Automatic (Recommended)</source>
-        <translation>自動 (推奨)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1560"/>
-        <source>Force software decoding</source>
-        <translation>ソフトウェアデコードを強制</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1564"/>
-        <source>Force hardware decoding</source>
-        <translation>ハードウェアデコードを強制</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1579"/>
-        <source>Video codec</source>
-        <translation>ビデオコーデック</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1613"/>
-        <source>H.264</source>
-        <translation>H.264</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1617"/>
-        <source>HEVC (H.265)</source>
-        <translation>HEVC (H.265)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1681"/>
-        <source>Good for streaming desktop and text-heavy games, but not recommended for fast-paced games.</source>
-        <translation>デスクトップやテキスト中心のゲームのストリーミングには適していますが、動きの速いゲームには推奨されません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1683"/>
-        <source>YUV 4:4:4 is not supported on this PC.</source>
-        <translation>YUV 4:4:4は、このPCではサポートされていません。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1689"/>
-        <source>Unlock bitrate limit (Experimental)</source>
-        <translation>ビットレートの制限を解除する（実験的）</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1702"/>
-        <source>This unlocks extremely high video bitrates for use with Sunshine hosts. It should only be used when streaming over an Ethernet LAN connection.</source>
-        <translation>Sunshineホストで非常に高いビデオビットレートを使用できるようにします。有線LAN接続でのストリーミング時のみ使用すべきです。</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1708"/>
-        <source>Automatically find PCs on the local network (Recommended)</source>
-        <translation>ローカルネットワーク上のPCを自動的に検出 (推奨)</translation>
-    </message>
-    <message>
-        <location filename="../gui/SettingsView.qml" line="1729"/>
-        <source>Automatically detect blocked connections (Recommended)</source>
-        <translation>ブロックされた接続を自動的に検出 (推奨)</translation>
     </message>
 </context>
 <context>
     <name>StreamSegue</name>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="12"/>
-        <source>Resuming %1...</source>
-        <translation>%1を再開しています...</translation>
+        <location filename="../gui/StreamSegue.qml" line="+20"/>
+        <source>Picking up where you left off</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="13"/>
-        <location filename="../gui/StreamSegue.qml" line="20"/>
-        <source>Starting %1...</source>
-        <translation>%1を起動しています...</translation>
+        <location line="+1"/>
+        <source>Setting up your screens</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="26"/>
-        <source>Starting %1 failed: Error %2</source>
-        <translation>%1の起動に失敗しました: エラー %2</translation>
+        <location line="+7"/>
+        <location line="+202"/>
+        <source>Starting %1…</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="29"/>
-        <source>Check your firewall and port forwarding rules for port(s): %1</source>
-        <translation>ファイアウォールと次のポートのポートフォワーディングルールを確認してください: %1</translation>
+        <location line="-196"/>
+        <location line="+22"/>
+        <source>Couldn&apos;t connect to %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="65"/>
-        <source>This PC&apos;s Internet connection is blocking Moonlight. Streaming over the Internet may not work while connected to this network.</source>
-        <translation>このPCのインターネット接続がMoonlightをブロックしています。このネットワークに接続している間はインターネットでのストリーミングができない場合があります。</translation>
+        <location line="-21"/>
+        <source>Starting %1 failed (error %2).</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="168"/>
-        <source>Tip:</source>
-        <translation>ヒント:</translation>
+        <location line="+3"/>
+        <source>Check the firewall on the PC and your network for these ports: %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="168"/>
-        <source>Press %1 to disconnect your session</source>
-        <translation>%1を押してセッションを切断します</translation>
+        <location line="+36"/>
+        <source>This network is blocking Stand-In, so connecting over the internet may not work here.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="169"/>
-        <source>Start+Select+L1+R1</source>
-        <translation>Start+Select+L1+R1</translation>
+        <location line="+90"/>
+        <source>To disconnect, press %1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/StreamSegue.qml" line="169"/>
-        <source>Ctrl+Alt+Shift+Q</source>
-        <translation>Ctrl+Alt+Shift+Q</translation>
+        <location line="+1"/>
+        <source>Start + Select + L1 + R1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Ctrl + Alt + Shift + Q</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+65"/>
+        <source>Connecting to %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Cancel</source>
+        <translation type="unfinished">キャンセル</translation>
+    </message>
+</context>
+<context>
+    <name>UsbDeviceModel</name>
+    <message>
+        <location filename="../gui/usbdevicemodel.cpp" line="+124"/>
+        <source>Built in · a virtual gamepad for checking that forwarding works</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+153"/>
+        <source>pair with this PC again first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>the PC ended the connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+179"/>
+        <source>the PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Not plugged in · it&apos;ll be sent when it is</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Webcams and audio devices can&apos;t be sent yet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This user isn&apos;t allowed to use this device yet (see the note above)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Already works through normal input. Send it only if %1 needs the device itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Bluetooth or Wi-Fi on this machine stops while it&apos;s sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Waiting for %1 to come online</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Pair with a PC to send devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Connecting to %1…</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Plugged into %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Plugged into %1 · not usable here until you switch it off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Couldn&apos;t send it: %1. Trying again…</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>main</name>
     <message>
-        <location filename="../gui/main.qml" line="444"/>
+        <location filename="../gui/main.qml" line="+276"/>
+        <source>Back</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>USB devices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="291"/>
-        <source>Version %1</source>
-        <translation>バージョン %1</translation>
+        <location line="+16"/>
+        <source>No working hardware video decoder was found. Your streaming performance may be severely degraded in this configuration.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="307"/>
-        <source>Join our community on Discord</source>
-        <translation>Discordコミュニティに参加する</translation>
+        <location line="+13"/>
+        <source>This version of Stand-In isn&apos;t optimized for your PC. Please download the &apos;%1&apos; version of Stand-In for the best streaming performance.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="326"/>
-        <source>Add PC manually</source>
-        <translation>手動でPCを追加</translation>
+        <location line="+9"/>
+        <source>These gamepads have no mapping and won&apos;t work while streaming:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="366"/>
-        <source>Update available for Moonlight: Version %1</source>
-        <translation>Moonlightで利用可能なアップデート: バージョン %1</translation>
+        <location line="+6"/>
+        <source>Quit Stand-In?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="413"/>
-        <source>Gamepad Mapper</source>
-        <translation>ゲームパッドマッパー</translation>
+        <location line="+2"/>
+        <source>Devices you&apos;re sending to a PC will be given back to this machine.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/main.qml" line="459"/>
+        <location line="+36"/>
+        <source>Add a PC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the PC&apos;s name or IP address. It needs Stand-In Server running.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>This network is blocking Stand-In. Try another network, or connect over Tailscale.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Couldn&apos;t reach %1. Check that it&apos;s on and Stand-In Server is running.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>e.g. big-pc or 192.168.1.20</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Cancel</source>
+        <translation type="unfinished">キャンセル</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-132"/>
         <source>Hardware acceleration doesn&apos;t work on XWayland. Continuing on XWayland may result in poor streaming performance. Try running with QT_QPA_PLATFORM=wayland or switch to X11.</source>
         <translation>XWaylandではハードウェアアクセラレーションが動作しません。XWaylandで続行すると、ストリーミングのパフォーマンスが低下する可能性があります。QT_QPA_PLATFORM=waylandで実行するか、X11に切り替えてみてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="468"/>
-        <source>This version of Moonlight isn&apos;t optimized for your PC. Please download the &apos;%1&apos; version of Moonlight for the best streaming performance.</source>
-        <translation>このバージョンのMoonlightは、お使いのPCに最適化されていません。最高のストリーミングパフォーマンスを実現するには、Moonlightの&apos;%1&apos;バージョンをダウンロードしてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="477"/>
-        <source>Moonlight detected gamepads without a mapping:</source>
-        <translation>Moonlightはマッピングのないゲームパッドを検出しました:</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="390"/>
-        <source>Help</source>
-        <translation>ヘルプ</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="451"/>
-        <source>No functioning hardware accelerated video decoder was detected by Moonlight. Your streaming performance may be severely degraded in this configuration.</source>
-        <translation>Moonlightはハードウェアアクセラレーションされたビデオデコーダーを検出できませんでした。この構成ではストリーミングのパフォーマンスが著しく低下する可能性があります。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="453"/>
-        <source>Click the Help button for more information on solving this problem.</source>
-        <translation>この問題を解決するための詳細情報については、ヘルプボタンをクリックしてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="461"/>
-        <source>Click the Help button for more information.</source>
-        <translation>詳細については、ヘルプボタンをクリックしてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="479"/>
-        <source>Click the Help button for information on how to map your gamepads.</source>
-        <translation>ゲームパッドをマップする方法については、ヘルプボタンをクリックしてください。</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="487"/>
-        <source>Are you sure you want to quit?</source>
-        <translation>本当に終了しますか？</translation>
-    </message>
-    <message>
-        <location filename="../gui/main.qml" line="517"/>
-        <source>Enter the IP address of your host PC:</source>
-        <translation>ホストPCのIPアドレスを入力してください:</translation>
     </message>
 </context>
 </TS>
