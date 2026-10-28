@@ -19,3 +19,4 @@ SiSpinner 1.0 SiSpinner.qml
 SiSectionLabel 1.0 SiSectionLabel.qml
 SiPicker 1.0 SiPicker.qml
 SiSliderRow 1.0 SiSliderRow.qml
+SiSwitchRow 1.0 SiSwitchRow.qml
