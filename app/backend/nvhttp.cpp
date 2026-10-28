@@ -205,6 +205,7 @@ NvHTTP::startApp(QString verb,
                  bool localAudio,
                  int gamepadMask,
                  bool persistGameControllersOnDisconnect,
+                 bool autoBitrate,
                  QString& rtspSessionUrl)
 {
     int riKeyId;
@@ -234,6 +235,8 @@ NvHTTP::startApp(QString verb,
                                    "&remoteControllersBitmap="+QString::number(gamepadMask)+
                                    "&gcmap="+QString::number(gamepadMask)+
                                    "&gcpersist="+QString::number(persistGameControllersOnDisconnect ? 1 : 0)+
+                                   // Stand-In Server only adapts the bitrate when the user left quality on Automatic
+                                   "&autoBitrate="+QString::number(autoBitrate ? 1 : 0)+
                                    LiGetLaunchUrlQueryParameters(),
                                    LAUNCH_TIMEOUT_MS);
 

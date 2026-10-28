@@ -59,11 +59,33 @@ FocusScope {
     // Quality follows the resolution and frame rate unless the user set it by hand
     function updateBitrateForSelection() {
         if (StreamingPreferences.autoAdjustBitrate) {
-            StreamingPreferences.bitrateKbps = StreamingPreferences.getDefaultBitrate(StreamingPreferences.width,
-                                                                                      StreamingPreferences.height,
-                                                                                      StreamingPreferences.fps,
+            var size = streamSize()
+            StreamingPreferences.bitrateKbps = StreamingPreferences.getDefaultBitrate(size.width,
+                                                                                      size.height,
+                                                                                      streamFps(),
                                                                                       StreamingPreferences.enableYUV444)
         }
+    }
+
+    // What a stream would use right now; automatic values follow this screen
+    function streamSize() {
+        if (StreamingPreferences.autoResolution) {
+            var screen = SystemProperties.getNativeResolution(0)
+            if (screen.width > 0) {
+                return screen
+            }
+        }
+        return Qt.size(StreamingPreferences.width, StreamingPreferences.height)
+    }
+
+    function streamFps() {
+        if (StreamingPreferences.autoFrameRate) {
+            var rate = SystemProperties.getRefreshRate(0)
+            if (rate > 0) {
+                return rate
+            }
+        }
+        return StreamingPreferences.fps
     }
 
     // Keep the focused control on screen while navigating with keys or a gamepad
@@ -207,7 +229,7 @@ FocusScope {
             spacing: 0
 
             function resolutionOptions() {
-                var options = []
+                var options = [{ text: qsTr("Automatic"), value: "auto" }]
                 function add(text, w, h) {
                     var max = SystemProperties.maximumResolution
                     if (max.width > 0 && w * h > max.width * max.height) {
@@ -227,9 +249,10 @@ FocusScope {
                     if (screen.width === 0) {
                         break
                     }
-                    add(d === 0 ? qsTr("Match this screen (%1 × %2)").arg(screen.width).arg(screen.height)
-                                : qsTr("Match screen %1 (%2 × %3)").arg(d + 1).arg(screen.width).arg(screen.height),
-                        screen.width, screen.height)
+                    if (d > 0) {
+                        add(qsTr("Match screen %1 (%2 × %3)").arg(d + 1).arg(screen.width).arg(screen.height),
+                            screen.width, screen.height)
+                    }
                 }
                 add("720p", 1280, 720)
                 add("1080p", 1920, 1080)
@@ -237,7 +260,7 @@ FocusScope {
                 add("4K", 3840, 2160)
 
                 var current = StreamingPreferences.width + "x" + StreamingPreferences.height
-                if (!options.some(function(o) { return o.value === current })) {
+                if (!StreamingPreferences.autoResolution && !options.some(function(o) { return o.value === current })) {
                     options.push({ text: qsTr("Custom (%1 × %2)").arg(StreamingPreferences.width).arg(StreamingPreferences.height), value: current })
                 }
                 options.push({ text: qsTr("Custom…"), value: "custom" })
@@ -255,11 +278,12 @@ FocusScope {
                         rates.push(rate)
                     }
                 }
-                if (rates.indexOf(StreamingPreferences.fps) < 0) {
+                if (!StreamingPreferences.autoFrameRate && rates.indexOf(StreamingPreferences.fps) < 0) {
                     rates.push(StreamingPreferences.fps)
                 }
                 rates.sort(function(a, b) { return a - b })
                 var options = rates.map(function(r) { return { text: qsTr("%1 FPS").arg(r), value: r } })
+                options.unshift({ text: qsTr("Automatic"), value: 0 })
                 options.push({ text: qsTr("Custom…"), value: -1 })
                 return options
             }
@@ -272,12 +296,19 @@ FocusScope {
                 SiPicker {
                     id: resolutionPicker
                     title: qsTr("Resolution")
-                    subtitle: qsTr("Higher is sharper; lower is smoother on slow networks.")
+                    subtitle: StreamingPreferences.autoResolution
+                              ? qsTr("Matches this screen (%1 × %2).").arg(settingsPage.streamSize().width).arg(settingsPage.streamSize().height)
+                              : qsTr("Higher is sharper; lower is smoother on slow networks.")
                     options: displayRoot.resolutionOptions()
-                    currentValue: StreamingPreferences.width + "x" + StreamingPreferences.height
+                    currentValue: StreamingPreferences.autoResolution ? "auto" : StreamingPreferences.width + "x" + StreamingPreferences.height
                     onActivated: (value) => {
                         if (value === "custom") {
                             customResolutionDialog.open()
+                            return
+                        }
+                        StreamingPreferences.autoResolution = value === "auto"
+                        if (value === "auto") {
+                            settingsPage.updateBitrateForSelection()
                             return
                         }
                         var size = value.split("x")
@@ -291,12 +322,19 @@ FocusScope {
                 SiPicker {
                     id: frameRatePicker
                     title: qsTr("Frame rate")
-                    subtitle: qsTr("Higher feels smoother.")
+                    subtitle: StreamingPreferences.autoFrameRate
+                              ? qsTr("Matches this screen (%1 FPS).").arg(settingsPage.streamFps())
+                              : qsTr("Higher feels smoother.")
                     options: displayRoot.frameRateOptions()
-                    currentValue: StreamingPreferences.fps
+                    currentValue: StreamingPreferences.autoFrameRate ? 0 : StreamingPreferences.fps
                     onActivated: (value) => {
                         if (value === -1) {
                             customFpsDialog.open()
+                            return
+                        }
+                        StreamingPreferences.autoFrameRate = value === 0
+                        if (value === 0) {
+                            settingsPage.updateBitrateForSelection()
                             return
                         }
                         StreamingPreferences.fps = value
@@ -307,8 +345,8 @@ FocusScope {
                 SiPicker {
                     title: qsTr("Quality")
                     subtitle: StreamingPreferences.autoAdjustBitrate
-                              ? qsTr("Starts at %1 Mbps and adapts to your network.").arg(StreamingPreferences.bitrateKbps / 1000)
-                              : qsTr("Fixed. Lower it if the picture stutters.")
+                              ? qsTr("Adjusts to your network while you use it.")
+                              : qsTr("Stays at the bitrate you set. Lower it if the picture stutters.")
                     options: [
                         { text: qsTr("Automatic"), value: true },
                         { text: qsTr("Manual"), value: false }
@@ -378,6 +416,7 @@ FocusScope {
                     if (!valid()) {
                         return
                     }
+                    StreamingPreferences.autoResolution = false
                     StreamingPreferences.width = parseInt(widthField.text)
                     StreamingPreferences.height = parseInt(heightField.text)
                     settingsPage.updateBitrateForSelection()
@@ -425,6 +464,7 @@ FocusScope {
                     if (!fpsField.acceptableInput) {
                         return
                     }
+                    StreamingPreferences.autoFrameRate = false
                     StreamingPreferences.fps = parseInt(fpsField.text)
                     settingsPage.updateBitrateForSelection()
                     frameRatePicker.options = displayRoot.frameRateOptions()

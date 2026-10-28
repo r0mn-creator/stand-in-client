@@ -681,6 +681,30 @@ bool Session::initialize(QQuickWindow* qtWindow)
     m_StreamConfig.fps = m_Preferences->fps;
     m_StreamConfig.bitrate = m_Preferences->bitrateKbps;
 
+    // Stand-In: automatic resolution and frame rate match the screen we'll stream on
+    if (m_Preferences->autoResolution || m_Preferences->autoFrameRate) {
+        SDL_DisplayMode desktopMode;
+        SDL_Rect safeArea;
+        if (StreamUtils::getNativeDesktopMode(getTargetDisplayIndex(), &desktopMode, &safeArea)) {
+            if (m_Preferences->autoResolution) {
+                m_StreamConfig.width = desktopMode.w & ~1;
+                m_StreamConfig.height = desktopMode.h & ~1;
+            }
+            if (m_Preferences->autoFrameRate && desktopMode.refresh_rate > 0) {
+                m_StreamConfig.fps = desktopMode.refresh_rate;
+            }
+        }
+    }
+
+    // Automatic quality starts from the default for what we're streaming and lets the
+    // server adapt it to the network
+    if (m_Preferences->autoAdjustBitrate) {
+        m_StreamConfig.bitrate = StreamingPreferences::getDefaultBitrate(m_StreamConfig.width,
+                                                                         m_StreamConfig.height,
+                                                                         m_StreamConfig.fps,
+                                                                         m_Preferences->enableYUV444);
+    }
+
 #ifndef STEAM_LINK
     // Opt-in to all encryption features if we detect that the platform
     // has AES cryptography acceleration instructions and more than 2 cores.
@@ -1314,8 +1338,7 @@ private:
     Session* m_Session;
 };
 
-void Session::getWindowDimensions(int& x, int& y,
-                                  int& width, int& height)
+int Session::getTargetDisplayIndex()
 {
     int displayIndex = 0;
 
@@ -1361,6 +1384,14 @@ void Session::getWindowDimensions(int& x, int& y,
             }
         }
     }
+
+    return displayIndex;
+}
+
+void Session::getWindowDimensions(int& x, int& y,
+                                  int& width, int& height)
+{
+    int displayIndex = getTargetDisplayIndex();
 
     // Get the usable display bounds
     SDL_Rect usableBounds;
@@ -1631,6 +1662,7 @@ bool Session::startConnectionAsync()
                       m_Preferences->playAudioOnHost,
                       m_InputHandler->getAttachedGamepadMask(),
                       !m_Preferences->multiController,
+                      m_Preferences->autoAdjustBitrate,
                       rtspSessionUrl);
     } catch (const GfeHttpResponseException& e) {
         emit displayLaunchError(tr("Host returned error: %1").arg(e.toQString()));

@@ -194,8 +194,8 @@ Right: the category's groups in a scrolling column (max 560).
 Narrow windows: the category list is the page; picking one pushes its page.
 
 Categories, in order (icon):
-1. Display & quality (display): Resolution, Frame rate, Quality (Auto by default;
-   slider when manual), Show performance stats.
+1. Display & quality (display): Resolution, Frame rate, Quality, Show performance stats.
+   All three start on **Automatic** (see "It just works" below).
 2. Audio (speaker): Sound output (Stereo / 5.1 / 7.1), Play sound on the PC too, Mute when in background.
 3. Input (keyboard): Touch works like (a trackpad / direct touch), Mouse, Keyboard shortcuts.
 4. Controllers (gamepad): controller options; On-screen controls (touch platforms).
@@ -204,6 +204,22 @@ Categories, in order (icon):
 7. Advanced (sliders): everything technical (codec, frame pacing, HDR, network options…),
    each with a one-line plain explanation.
 8. About (info): version, "Built on Moonlight, Artemis and Apollo" credits with licences, source link.
+
+**It just works.** Install, pair, Connect: nothing needs setting first.
+- Resolution: first option "Automatic", default. Subtitle "Matches this screen (W × H)."
+  Streams at the native resolution of the screen the client is on, read when connecting.
+  Then fixed sizes (720p, 1080p, 1440p, 4K, other screens), "Custom…".
+- Frame rate: first option "Automatic", default. Subtitle "Matches this screen (N FPS)."
+  Uses that screen's refresh rate. Then 30/60/90/120…, "Custom…".
+- Quality: Automatic (default) / Manual. Automatic subtitle "Adjusts to your network
+  while you use it." The client asks for the default bitrate for the resolution and frame
+  rate it streams at; the server starts at what held up last time on this network and
+  lowers or raises it while streaming. Manual shows the Bitrate slider, subtitle "Stays at
+  the bitrate you set. Lower it if the picture stutters.", and the server never changes it.
+- Protocol: Stand-In clients add `autoBitrate=1|0` to the launch/resume query. Missing
+  (stock Moonlight) means 1.
+- Picking a fixed size, rate or Custom turns that one setting's Automatic off; picking
+  Automatic turns it back on.
 
 Platform-only options appear only where they work, in the same category and group
 shape; they never change the layout of the options both platforms share.
