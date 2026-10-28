@@ -16,7 +16,7 @@ Stand-In has three parts:
 
 ## Building
 
-Qt 6 and SDL2 are required (same dependencies as moonlight-qt). Clone with `--recursive`, then:
+Qt 6 and SDL2 are required. Clone with `--recursive`, then:
 
 ```
 qmake6 PREFIX=$HOME/.local
@@ -28,13 +28,12 @@ The look of every Stand-In app comes from one design system in `stand-in-brand/d
 
 ## Credits and licence
 
-Stand-In is free software under the GNU GPL v3 (see `LICENSE`). It is a new project
-built on the work of others:
+Stand-In is its own project. It started from open-source streaming software and has
+evolved into something different, but it owes a lot to these projects and keeps their
+licence, the GNU GPL v3 (see `LICENSE`). Their copyright notices stay in the source.
 
 - [Moonlight](https://moonlight-stream.org) (moonlight-qt, moonlight-android, moonlight-common-c)
 - [Artemis](https://github.com/ClassicOldSong/moonlight-android) by ClassicOldSong
 - [Apollo](https://github.com/ClassicOldSong/Apollo) by ClassicOldSong, itself built on
   [Sunshine](https://github.com/LizardByte/Sunshine) by LizardByte
 - [Inter](https://rsms.me/inter/) typeface by Rasmus Andersson (SIL OFL)
-
-The original project's README is kept as `README.upstream.md`.
